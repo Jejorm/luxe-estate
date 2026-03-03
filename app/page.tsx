@@ -2,9 +2,26 @@ import { Navbar } from '../components/Navbar'
 import { FilterButtons } from '../components/FilterButtons'
 import { FeaturedPropertyCard } from '../components/FeaturedPropertyCard'
 import { PropertyCard } from '../components/PropertyCard'
-import { featuredProperties, newMarketProperties } from '../data/mockProperties'
+import { Pagination } from '../components/Pagination'
+import {
+  getFeaturedProperties,
+  getNewMarketProperties,
+} from '../lib/properties'
 
-export default function Home() {
+interface HomeProps {
+  searchParams: Promise<{ page?: string }>
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const { page: pageParam } = await searchParams
+  const currentPage = Math.max(1, Number(pageParam) || 1)
+
+  const [featuredProperties, { data: newMarketProperties, totalPages }] =
+    await Promise.all([
+      getFeaturedProperties(),
+      getNewMarketProperties(currentPage, 8),
+    ])
+
   return (
     <div className="bg-background-light min-h-screen">
       <Navbar />
@@ -100,11 +117,7 @@ export default function Home() {
             })}
           </div>
 
-          <div className="mt-12 text-center">
-            <button className="px-8 py-3 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md">
-              Load more properties
-            </button>
-          </div>
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
         </section>
       </main>
     </div>

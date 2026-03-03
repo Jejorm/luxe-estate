@@ -1,4 +1,4 @@
-import { Property } from '../data/mockProperties'
+import type { Property } from '../lib/properties'
 
 interface Props {
   property: Property
@@ -6,8 +6,9 @@ interface Props {
 }
 
 export const PropertyCard = ({ property, className = '' }: Props) => {
-  // Dynamic tag styling depending on tagType
-  const isSale = property.tagType === 'sale' || property.tag === 'FOR SALE'
+  // Dynamic tag styling depending on tag_type
+  const isSale =
+    property.tag_type === 'sale' || property.tag_type === 'exclusive'
   const tagBgClass = isSale ? 'bg-nordic-dark/90' : 'bg-mosque/90'
 
   return (
@@ -18,7 +19,7 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
         <img
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          src={property.imageUrl}
+          src={property.image_url}
         />
         <button className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
           <span className="material-icons text-lg">favorite_border</span>
@@ -34,8 +35,8 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
       <div className="p-4 flex flex-col flex-grow">
         <div className="flex justify-between items-baseline mb-2">
           <h3 className="font-bold text-lg text-nordic-dark">
-            {property.price}
-            {property.isRent && (
+            {property.price_display}
+            {property.is_rent && (
               <span className="text-sm font-normal text-nordic-muted">/mo</span>
             )}
           </h3>

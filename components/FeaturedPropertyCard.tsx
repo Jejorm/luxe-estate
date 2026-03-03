@@ -1,4 +1,4 @@
-import { Property } from '../data/mockProperties'
+import type { Property } from '../lib/properties'
 
 interface Props {
   property: Property
@@ -11,7 +11,7 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
         <img
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          src={property.imageUrl}
+          src={property.image_url}
         />
         {property.tag && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark">
@@ -35,7 +35,7 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
             </p>
           </div>
           <span className="text-xl font-semibold text-mosque">
-            {property.price}
+            {property.price_display}
           </span>
         </div>
         <div className="flex items-center gap-6 mt-6 pt-6 border-t border-nordic-dark/5">
