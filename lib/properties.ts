@@ -1,6 +1,15 @@
 import { supabase } from './supabase'
 
 export type PropertyTagType = 'sale' | 'rent' | 'exclusive' | 'new'
+export type PropertyType =
+  | 'house'
+  | 'apartment'
+  | 'villa'
+  | 'penthouse'
+  | 'condo'
+  | 'townhouse'
+  | 'loft'
+  | 'estate'
 
 export interface Property {
   id: string
@@ -19,7 +28,17 @@ export interface Property {
   lat: number
   lng: number
   is_featured: boolean
+  property_type: PropertyType | null
   created_at: string
+}
+
+export interface PropertyFilters {
+  search?: string
+  type?: string
+  minPrice?: number
+  maxPrice?: number
+  minBeds?: number
+  minBaths?: number
 }
 
 export interface PaginatedProperties {
@@ -48,16 +67,60 @@ export async function getFeaturedProperties(): Promise<Property[]> {
 export async function getNewMarketProperties(
   page = 1,
   pageSize = 8,
+  filters: PropertyFilters = {},
 ): Promise<PaginatedProperties> {
   const from = (page - 1) * pageSize
   const to = from + pageSize - 1
 
-  const { data, error, count } = await supabase
+  let query = supabase
     .from('properties')
     .select('*', { count: 'exact' })
     .eq('is_featured', false)
     .order('created_at', { ascending: true })
-    .range(from, to)
+
+  // Text search across title and location
+  if (filters.search && filters.search.trim()) {
+    query = query.or(
+      `title.ilike.%${filters.search.trim()}%,location.ilike.%${filters.search.trim()}%`,
+    )
+  }
+
+  // Property type filter (maps pill labels to DB values)
+  if (filters.type && filters.type !== 'all') {
+    // Support compound labels like "villa" → matches "villa", "estate" → broad match
+    const typeMap: Record<string, string[]> = {
+      house: ['house'],
+      apartment: ['apartment'],
+      villa: ['villa'],
+      penthouse: ['penthouse'],
+      condo: ['condo'],
+      townhouse: ['townhouse'],
+      loft: ['loft'],
+      estate: ['estate'],
+    }
+    const mapped = typeMap[filters.type.toLowerCase()]
+    if (mapped && mapped.length === 1) {
+      query = query.eq('property_type', mapped[0])
+    }
+  }
+
+  // Price range
+  if (filters.minPrice !== undefined && filters.minPrice > 0) {
+    query = query.gte('price_numeric', filters.minPrice)
+  }
+  if (filters.maxPrice !== undefined) {
+    query = query.lte('price_numeric', filters.maxPrice)
+  }
+
+  // Bedrooms & bathrooms minimums
+  if (filters.minBeds !== undefined && filters.minBeds > 0) {
+    query = query.gte('beds', filters.minBeds)
+  }
+  if (filters.minBaths !== undefined && filters.minBaths > 0) {
+    query = query.gte('baths', filters.minBaths)
+  }
+
+  const { data, error, count } = await query.range(from, to)
 
   if (error) {
     console.error('Error fetching new market properties:', error)

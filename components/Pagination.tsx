@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 interface PaginationProps {
   currentPage: number
@@ -6,7 +9,15 @@ interface PaginationProps {
 }
 
 export function Pagination({ currentPage, totalPages }: PaginationProps) {
+  const searchParams = useSearchParams()
+
   if (totalPages <= 1) return null
+
+  const buildHref = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', String(page))
+    return `/?${params.toString()}`
+  }
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
   const hasPrev = currentPage > 1
@@ -17,7 +28,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
       {/* Previous */}
       {hasPrev ? (
         <Link
-          href={`/?page=${currentPage - 1}`}
+          href={buildHref(currentPage - 1)}
           className="flex items-center gap-1 px-4 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark text-sm font-medium rounded-lg transition-all hover:shadow-md"
         >
           <span className="material-icons text-base">chevron_left</span>
@@ -35,7 +46,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
         {pages.map((page) => (
           <Link
             key={page}
-            href={`/?page=${page}`}
+            href={buildHref(page)}
             className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-all ${
               page === currentPage
                 ? 'bg-mosque text-white shadow-md shadow-mosque/20'
@@ -50,7 +61,7 @@ export function Pagination({ currentPage, totalPages }: PaginationProps) {
       {/* Next */}
       {hasNext ? (
         <Link
-          href={`/?page=${currentPage + 1}`}
+          href={buildHref(currentPage + 1)}
           className="flex items-center gap-1 px-4 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark text-sm font-medium rounded-lg transition-all hover:shadow-md"
         >
           Siguiente

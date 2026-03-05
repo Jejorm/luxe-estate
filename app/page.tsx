@@ -1,4 +1,6 @@
+import { Suspense } from 'react'
 import { Navbar } from '../components/Navbar'
+import { SearchBar } from '../components/SearchBar'
 import { FilterButtons } from '../components/FilterButtons'
 import { FeaturedPropertyCard } from '../components/FeaturedPropertyCard'
 import { PropertyCard } from '../components/PropertyCard'
@@ -9,17 +11,37 @@ import {
 } from '../lib/properties'
 
 interface HomeProps {
-  searchParams: Promise<{ page?: string }>
+  searchParams: Promise<{
+    page?: string
+    search?: string
+    type?: string
+    minPrice?: string
+    maxPrice?: string
+    minBeds?: string
+    minBaths?: string
+  }>
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { page: pageParam } = await searchParams
-  const currentPage = Math.max(1, Number(pageParam) || 1)
+  const params = await searchParams
 
-  const [featuredProperties, { data: newMarketProperties, totalPages }] =
+  const currentPage = Math.max(1, Number(params.page) || 1)
+
+  const filters = {
+    search: params.search,
+    type: params.type,
+    minPrice: params.minPrice ? Number(params.minPrice) : undefined,
+    maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
+    minBeds: params.minBeds ? Number(params.minBeds) : undefined,
+    minBaths: params.minBaths ? Number(params.minBaths) : undefined,
+  }
+
+  const hasActiveFilters = Object.values(filters).some((v) => v !== undefined)
+
+  const [featuredProperties, { data: newMarketProperties, totalPages, count }] =
     await Promise.all([
       getFeaturedProperties(),
-      getNewMarketProperties(currentPage, 8),
+      getNewMarketProperties(currentPage, 8, filters),
     ])
 
   return (
@@ -36,88 +58,181 @@ export default async function Home({ searchParams }: HomeProps) {
               </span>
               .
             </h1>
-            <div className="relative group max-w-2xl mx-auto">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <span className="material-icons text-nordic-muted text-2xl group-focus-within:text-mosque transition-colors">
-                  search
-                </span>
-              </div>
-              <input
-                className="block w-full pl-12 pr-4 py-4 rounded-xl border-none bg-white text-nordic-dark shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white transition-all text-lg"
-                placeholder="Search by city, neighborhood, or address..."
-                type="text"
-              />
-              <button className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-medium rounded-lg transition-colors flex items-center justify-center shadow-lg shadow-mosque/20">
-                Search
-              </button>
-            </div>
-            <FilterButtons />
+
+            {/* Search bar — client component */}
+            <Suspense
+              fallback={
+                <div className="relative max-w-2xl mx-auto h-16 rounded-xl bg-white shadow-soft animate-pulse" />
+              }
+            >
+              <SearchBar />
+            </Suspense>
+
+            {/* Filter type pills + modal trigger — client component */}
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center gap-3 py-2">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div
+                      key={i}
+                      className="h-9 w-20 rounded-full bg-white animate-pulse"
+                    />
+                  ))}
+                </div>
+              }
+            >
+              <FilterButtons />
+            </Suspense>
           </div>
         </section>
 
-        <section className="mb-16">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h2 className="text-2xl font-light text-nordic-dark">
-                Featured Collections
-              </h2>
-              <p className="text-nordic-muted mt-1 text-sm">
-                Curated properties for the discerning eye.
-              </p>
-            </div>
+        {/* Active filters summary bar */}
+        {hasActiveFilters && (
+          <div className="mb-6 flex items-center gap-2 flex-wrap">
+            <span className="text-sm text-nordic-muted">
+              Showing{' '}
+              <span className="font-semibold text-nordic-dark">{count}</span>{' '}
+              properties
+              {filters.search && (
+                <>
+                  {' '}
+                  matching{' '}
+                  <span className="font-semibold text-mosque">
+                    "{filters.search}"
+                  </span>
+                </>
+              )}
+            </span>
+            {filters.type && (
+              <span className="px-3 py-1 bg-mosque/10 text-mosque text-xs font-medium rounded-full capitalize">
+                {filters.type}
+              </span>
+            )}
+            {(filters.minPrice || filters.maxPrice) && (
+              <span className="px-3 py-1 bg-mosque/10 text-mosque text-xs font-medium rounded-full">
+                {filters.minPrice
+                  ? `$${(filters.minPrice / 1e6).toFixed(1)}M`
+                  : '$0'}
+                {' – '}
+                {filters.maxPrice
+                  ? `$${(filters.maxPrice / 1e6).toFixed(1)}M`
+                  : 'No limit'}
+              </span>
+            )}
+            {filters.minBeds && (
+              <span className="px-3 py-1 bg-mosque/10 text-mosque text-xs font-medium rounded-full">
+                {filters.minBeds}+ beds
+              </span>
+            )}
+            {filters.minBaths && (
+              <span className="px-3 py-1 bg-mosque/10 text-mosque text-xs font-medium rounded-full">
+                {filters.minBaths}+ baths
+              </span>
+            )}
             <a
-              className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity"
-              href="#"
+              href="/"
+              className="ml-auto text-xs text-nordic-muted hover:text-nordic-dark underline underline-offset-2 transition-colors"
             >
-              View all{' '}
-              <span className="material-icons text-sm">arrow_forward</span>
+              Clear all
             </a>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {featuredProperties.map((property) => (
-              <FeaturedPropertyCard key={property.id} property={property} />
-            ))}
-          </div>
-        </section>
+        )}
+
+        {/* Featured Collections — only shown when no active filters */}
+        {!hasActiveFilters && (
+          <section className="mb-16">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-2xl font-light text-nordic-dark">
+                  Featured Collections
+                </h2>
+                <p className="text-nordic-muted mt-1 text-sm">
+                  Curated properties for the discerning eye.
+                </p>
+              </div>
+              <a
+                className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity"
+                href="#"
+              >
+                View all{' '}
+                <span className="material-icons text-sm">arrow_forward</span>
+              </a>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {featuredProperties.map((property) => (
+                <FeaturedPropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          </section>
+        )}
 
         <section>
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-light text-nordic-dark">
-                New in Market
+                {hasActiveFilters ? 'Search Results' : 'New in Market'}
               </h2>
               <p className="text-nordic-muted mt-1 text-sm">
-                Fresh opportunities added this week.
+                {hasActiveFilters
+                  ? `${count} ${count === 1 ? 'property' : 'properties'} found.`
+                  : 'Fresh opportunities added this week.'}
               </p>
             </div>
-            <div className="hidden md:flex bg-white p-1 rounded-lg">
-              <button className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">
-                All
-              </button>
-              <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
-                Buy
-              </button>
-              <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
-                Rent
-              </button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {newMarketProperties.map((property, index) => {
-              let extraClass = ''
-              if (index === 4) extraClass = 'hidden xl:flex'
-              if (index === 5) extraClass = 'hidden lg:flex'
-              return (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                  className={extraClass}
-                />
-              )
-            })}
+            {!hasActiveFilters && (
+              <div className="hidden md:flex bg-white p-1 rounded-lg">
+                <button className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">
+                  All
+                </button>
+                <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
+                  Buy
+                </button>
+                <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
+                  Rent
+                </button>
+              </div>
+            )}
           </div>
 
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
+          {newMarketProperties.length === 0 ? (
+            <div className="text-center py-24 space-y-4">
+              <span className="material-icons text-6xl text-nordic-muted/40">
+                search_off
+              </span>
+              <p className="text-xl font-light text-nordic-dark">
+                No properties found
+              </p>
+              <p className="text-nordic-muted text-sm">
+                Try adjusting your filters or search terms.
+              </p>
+              <a
+                href="/"
+                className="inline-flex items-center gap-2 mt-4 px-6 py-2.5 bg-mosque text-white rounded-lg font-medium hover:bg-mosque/90 transition-colors"
+              >
+                Clear filters
+              </a>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {newMarketProperties.map((property, index) => {
+                let extraClass = ''
+                if (!hasActiveFilters && index === 4)
+                  extraClass = 'hidden xl:flex'
+                if (!hasActiveFilters && index === 5)
+                  extraClass = 'hidden lg:flex'
+                return (
+                  <PropertyCard
+                    key={property.id}
+                    property={property}
+                    className={extraClass}
+                  />
+                )
+              })}
+            </div>
+          )}
+
+          <Suspense fallback={null}>
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          </Suspense>
         </section>
       </main>
     </div>
