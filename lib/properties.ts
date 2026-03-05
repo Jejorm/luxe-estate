@@ -14,7 +14,10 @@ export interface Property {
   area: string
   tag: string
   tag_type: PropertyTagType | null
-  image_url: string
+  images: string[]
+  slug: string
+  lat: number
+  lng: number
   is_featured: boolean
   created_at: string
 }
@@ -71,4 +74,34 @@ export async function getNewMarketProperties(
     pageSize,
     totalPages,
   }
+}
+
+export async function getPropertyBySlug(
+  slug: string,
+): Promise<Property | null> {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('slug', slug)
+    .single()
+
+  if (error) {
+    if (error.code !== 'PGRST116')
+      // Not found error
+      console.error('Error fetching property by slug:', error)
+    return null
+  }
+
+  return data
+}
+
+export async function getAllPropertySlugs(): Promise<{ slug: string }[]> {
+  const { data, error } = await supabase.from('properties').select('slug')
+
+  if (error) {
+    console.error('Error fetching property slugs:', error)
+    return []
+  }
+
+  return data ?? []
 }

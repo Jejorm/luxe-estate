@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Property } from '../lib/properties'
 
 interface Props {
@@ -12,14 +13,15 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
   const tagBgClass = isSale ? 'bg-nordic-dark/90' : 'bg-mosque/90'
 
   return (
-    <article
-      className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}
+    <Link
+      href={`/properties/${property.slug}`}
+      className={`block bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          src={property.image_url}
+          src={property.images[0]}
         />
         <button className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
           <span className="material-icons text-lg">favorite_border</span>
@@ -66,6 +68,6 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   )
 }
