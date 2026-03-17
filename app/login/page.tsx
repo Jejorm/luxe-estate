@@ -2,47 +2,42 @@ import { signInWithGitHub, signInWithGoogle } from '@/app/actions/auth'
 
 export default function LoginPage() {
   return (
-    <div className="font-sans min-h-screen flex items-center justify-center p-4 antialiased relative overflow-hidden bg-[#EEF6F6] text-[#19322F]">
-      {/* Background blobs */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#D9ECC8]/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#006655]/10 rounded-full blur-3xl" />
-      </div>
+    <div className="font-sans min-h-screen flex items-center justify-center p-4 antialiased relative overflow-hidden bg-[#eff6f5] text-[#1a2d2a]">
+      {/* Background radial gradient for a premium feel similar to the image */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent" />
 
       <main className="w-full max-w-md z-10">
         {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-[#006655] rounded-xl mb-6 shadow-[0_4px_20px_-2px_rgba(25,50,47,0.05)] text-white">
-            <span className="material-symbols-rounded text-3xl">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#004d40] rounded-[1.25rem] mb-6 shadow-sm text-white">
+            <span className="material-symbols-rounded text-4xl">
               real_estate_agent
             </span>
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#19322F] mb-2">
+          <h1 className="text-[2rem] font-bold tracking-tight text-[#1a2d2a] mb-2 leading-tight">
             Welcome to LuxeEstate
           </h1>
-          <p className="text-[#19322F]/60">
+          <p className="text-[#6b7c7a] text-lg font-medium">
             Unlock exclusive properties worldwide.
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-[0_4px_20px_-2px_rgba(25,50,47,0.05)] p-8 sm:p-10 border border-white/50 backdrop-blur-sm">
+        <div className="bg-white rounded-4xl shadow-[0_20px_50px_rgba(0,0,0,0.04)] p-10 border border-white/60 backdrop-blur-xl">
           <div className="space-y-4">
             {/* Google Button */}
             <form action={signInWithGoogle}>
               <button
                 type="submit"
-                className="group w-full flex items-center justify-center gap-3 bg-white border border-gray-100 rounded-lg p-3.5 text-[#19322F] font-medium transition-all duration-300 hover:shadow-[0_10px_25px_-5px_rgba(25,50,47,0.1)] hover:-translate-y-0.5 relative overflow-hidden"
+                className="w-full h-14 flex items-center justify-center gap-3 bg-white border border-[#f0f0f0] rounded-xl text-[#1a2d2a] font-semibold transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
               >
-                <div className="absolute inset-0 bg-[#D9ECC8]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                 <svg
-                  className="w-5 h-5 relative z-10"
+                  className="w-5 h-5"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   role="img"
                   aria-label="Google logo"
                 >
-                  <title>Google logo</title>
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -60,7 +55,7 @@ export default function LoginPage() {
                     fill="#EA4335"
                   />
                 </svg>
-                <span className="relative z-10">Continue with Google</span>
+                <span>Continue with Google</span>
               </button>
             </form>
 
@@ -68,29 +63,27 @@ export default function LoginPage() {
             <form action={signInWithGitHub}>
               <button
                 type="submit"
-                className="group w-full flex items-center justify-center gap-3 bg-white border border-gray-100 rounded-lg p-3.5 text-[#19322F] font-medium transition-all duration-300 hover:shadow-[0_10px_25px_-5px_rgba(25,50,47,0.1)] hover:-translate-y-0.5 relative overflow-hidden"
+                className="w-full h-14 flex items-center justify-center gap-3 bg-white border border-[#f0f0f0] rounded-xl text-[#1a2d2a] font-semibold transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
               >
-                <div className="absolute inset-0 bg-[#D9ECC8]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                 <svg
-                  className="w-5 h-5 relative z-10 fill-current text-[#19322F]"
+                  className="w-6 h-6 fill-current text-[#1a2d2a]"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   role="img"
                   aria-label="GitHub logo"
                 >
-                  <title>GitHub logo</title>
                   <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
                 </svg>
-                <span className="relative z-10">Continue with GitHub</span>
+                <span>Continue with GitHub</span>
               </button>
             </form>
           </div>
 
-          <p className="mt-8 text-center text-sm text-[#19322F]/70">
+          <p className="mt-10 text-center text-[0.95rem] text-[#6b7c7a] font-medium">
             {"Don't have an account?"}{' '}
             <a
-              className="font-semibold text-[#006655] hover:text-[#004d40] transition-colors"
-              href="/login"
+              className="font-bold text-[#006655] hover:text-[#004d40] transition-colors"
+              href="/"
             >
               Sign up
             </a>
@@ -98,15 +91,15 @@ export default function LoginPage() {
         </div>
 
         {/* Footer links */}
-        <div className="mt-8 text-center">
-          <nav className="flex justify-center gap-6 text-xs text-[#19322F]/50">
-            <a className="hover:text-[#19322F] transition-colors" href="/login">
+        <div className="mt-10">
+          <nav className="flex justify-center gap-8 text-sm font-medium text-[#adb5b4]">
+            <a className="hover:text-[#6b7c7a] transition-colors" href="/">
               Privacy Policy
             </a>
-            <a className="hover:text-[#19322F] transition-colors" href="/login">
+            <a className="hover:text-[#6b7c7a] transition-colors" href="/">
               Terms of Service
             </a>
-            <a className="hover:text-[#19322F] transition-colors" href="/login">
+            <a className="hover:text-[#6b7c7a] transition-colors" href="/">
               Help Center
             </a>
           </nav>

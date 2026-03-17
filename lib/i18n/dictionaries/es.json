@@ -3,7 +3,9 @@
     "buy": "Comprar",
     "rent": "Alquilar",
     "sell": "Vender",
-    "savedHomes": "Guardados"
+    "savedHomes": "Guardados",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión"
   },
   "home": {
     "heroTitle": "Encuentra tu",

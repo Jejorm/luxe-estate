@@ -76,35 +76,37 @@ export const Navbar = async () => {
             </button>
 
             {user ? (
-              <form action={signOut}>
-                <button
-                  type="submit"
-                  title="Sign out"
-                  className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2"
-                >
-                  <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
-                    {avatarUrl ? (
-                      <Image
-                        alt={fullName ?? 'Profile'}
-                        className="w-full h-full object-cover"
-                        src={avatarUrl}
-                        width={36}
-                        height={36}
-                      />
-                    ) : (
-                      <span className="material-icons text-nordic-dark text-lg flex items-center justify-center w-full h-full">
-                        person
-                      </span>
-                    )}
-                  </div>
-                </button>
-              </form>
+              <div className="flex items-center gap-4 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2">
+                <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
+                  {avatarUrl ? (
+                    <Image
+                      alt={fullName ?? 'Profile'}
+                      className="w-full h-full object-cover"
+                      src={avatarUrl}
+                      width={36}
+                      height={36}
+                    />
+                  ) : (
+                    <span className="material-icons text-nordic-dark text-lg flex items-center justify-center w-full h-full">
+                      person
+                    </span>
+                  )}
+                </div>
+                <form action={signOut}>
+                  <button
+                    type="submit"
+                    className="text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
+                  >
+                    {dict.nav.signOut}
+                  </button>
+                </form>
+              </div>
             ) : (
               <Link
                 href="/login"
-                className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2 text-sm font-medium text-mosque hover:text-mosque/80 transition-colors"
+                className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2 text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
               >
-                Sign in
+                {dict.nav.signIn}
               </Link>
             )}
           </div>
