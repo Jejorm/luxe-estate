@@ -1,9 +1,9 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { DynamicPropertyMap } from '@/components/DynamicPropertyMap'
 import { Navbar } from '@/components/Navbar'
 import { PropertyGallery } from '@/components/PropertyGallery'
-import { getPropertyBySlug, getAllPropertySlugs } from '@/lib/properties'
-import { notFound } from 'next/navigation'
-import { Metadata } from 'next'
-import { DynamicPropertyMap } from '@/components/DynamicPropertyMap'
+import { getAllPropertySlugs, getPropertyBySlug } from '@/lib/properties'
 
 interface PropertyPageProps {
   params: Promise<{ slug: string }>

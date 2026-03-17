@@ -1,10 +1,21 @@
+import Image from 'next/image'
 import Link from 'next/link'
+import { signOut } from '@/app/actions/auth'
+import { getCurrentLocale, getDictionary } from '@/lib/i18n/getDictionary'
+import { createClient } from '@/lib/supabase/server'
 import { LanguageSelector } from './LanguageSelector'
-import { getDictionary, getCurrentLocale } from '@/lib/i18n/getDictionary'
 
 export const Navbar = async () => {
   const dict = await getDictionary()
   const locale = await getCurrentLocale()
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  const avatarUrl = user?.user_metadata?.avatar_url as string | undefined
+  const fullName = user?.user_metadata?.full_name as string | undefined
 
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95 backdrop-blur-md border-b border-nordic-dark/10">
@@ -25,47 +36,77 @@ export const Navbar = async () => {
           <div className="hidden md:flex items-center space-x-8">
             <a
               className="text-mosque font-medium text-sm border-b-2 border-mosque px-1 py-1"
-              href="#"
+              href="/"
             >
               {dict.nav.buy}
             </a>
             <a
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="#"
+              href="/"
             >
               {dict.nav.rent}
             </a>
             <a
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="#"
+              href="/"
             >
               {dict.nav.sell}
             </a>
             <a
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="#"
+              href="/"
             >
               {dict.nav.savedHomes}
             </a>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-6">
             <LanguageSelector currentLocale={locale} />
-            <button type="button" className="text-nordic-dark hover:text-mosque transition-colors hidden sm:block">
+            <button
+              type="button"
+              className="text-nordic-dark hover:text-mosque transition-colors hidden sm:block"
+            >
               <span className="material-icons">search</span>
             </button>
-            <button type="button" className="text-nordic-dark hover:text-mosque transition-colors relative hidden sm:block">
+            <button
+              type="button"
+              className="text-nordic-dark hover:text-mosque transition-colors relative hidden sm:block"
+            >
               <span className="material-icons">notifications_none</span>
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background-light"></span>
+              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background-light" />
             </button>
-            <button type="button" className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2">
-              <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
-                <img
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAWhQZ663Bd08kmzjbOPmUk4UIxYooNONShMEFXLR-DtmVi6Oz-TiaY77SPwFk7g0OobkeZEOMvt6v29mSOD0Xm2g95WbBG3ZjWXmiABOUwGU0LOySRfVDo-JTXQ0-gtwjWxbmue0qDm91m-zEOEZwAW6iRFB1qC1bAU-wkjxm67Sbztq8w7srHkFT9bVEC86qG-FzhOBTomhAurNRmx9l8Yfqabk328NfdKuVLckgCdaPsNFE3yN65MeoRi05GA_gXIMwG4YDIeA"
-                />
-              </div>
-            </button>
+
+            {user ? (
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  title="Sign out"
+                  className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2"
+                >
+                  <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
+                    {avatarUrl ? (
+                      <Image
+                        alt={fullName ?? 'Profile'}
+                        className="w-full h-full object-cover"
+                        src={avatarUrl}
+                        width={36}
+                        height={36}
+                      />
+                    ) : (
+                      <span className="material-icons text-nordic-dark text-lg flex items-center justify-center w-full h-full">
+                        person
+                      </span>
+                    )}
+                  </div>
+                </button>
+              </form>
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2 text-sm font-medium text-mosque hover:text-mosque/80 transition-colors"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -29,7 +29,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 /* Utilities */
 .hide-scroll::-webkit-scrollbar {
   display: none;

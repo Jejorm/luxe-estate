@@ -1,9 +1,9 @@
 import 'server-only'
 import { cookies } from 'next/headers'
-import { i18n } from './config'
 import type { Locale } from './config'
+import { i18n } from './config'
 
-import enDictionary from './dictionaries/en.json'
+import type enDictionary from './dictionaries/en.json'
 
 export type Dictionary = typeof enDictionary
 
@@ -15,10 +15,12 @@ const dictionaries = {
 
 export const getDictionary = async () => {
   const cookieStore = await cookies()
-  const localeCookie = cookieStore.get('NEXT_LOCALE')?.value as Locale | undefined
+  const localeCookie = cookieStore.get('NEXT_LOCALE')?.value as
+    | Locale
+    | undefined
 
   let locale: Locale = i18n.defaultLocale
-  
+
   if (localeCookie && i18n.locales.includes(localeCookie)) {
     locale = localeCookie
   }
@@ -28,7 +30,9 @@ export const getDictionary = async () => {
 
 export const getCurrentLocale = async (): Promise<Locale> => {
   const cookieStore = await cookies()
-  const localeCookie = cookieStore.get('NEXT_LOCALE')?.value as Locale | undefined
+  const localeCookie = cookieStore.get('NEXT_LOCALE')?.value as
+    | Locale
+    | undefined
 
   if (localeCookie && i18n.locales.includes(localeCookie)) {
     return localeCookie

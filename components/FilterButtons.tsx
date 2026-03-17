@@ -1,9 +1,9 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { SearchFiltersModal } from './SearchFiltersModal'
 import { useState } from 'react'
 import type { Dictionary } from '@/lib/i18n/getDictionary'
+import { SearchFiltersModal } from './SearchFiltersModal'
 
 export const FilterButtons = ({ dict }: { dict: Dictionary['search'] }) => {
   const router = useRouter()

@@ -1,6 +1,6 @@
 'use client'
 
-import { useTransition, useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
 import { setLanguage } from '@/app/actions/language'
 import type { Locale } from '@/lib/i18n/config'
 
@@ -10,7 +10,11 @@ const languages = [
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
 ]
 
-export const LanguageSelector = ({ currentLocale }: { currentLocale: Locale }) => {
+export const LanguageSelector = ({
+  currentLocale,
+}: {
+  currentLocale: Locale
+}) => {
   const [isPending, startTransition] = useTransition()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -27,7 +31,10 @@ export const LanguageSelector = ({ currentLocale }: { currentLocale: Locale }) =
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
@@ -44,7 +51,9 @@ export const LanguageSelector = ({ currentLocale }: { currentLocale: Locale }) =
         className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-nordic-dark hover:bg-nordic-dark/5 rounded-lg transition-colors"
       >
         <span>{currentLanguage?.flag}</span>
-        <span className="hidden sm:inline-block uppercase">{currentLanguage?.code}</span>
+        <span className="hidden sm:inline-block uppercase">
+          {currentLanguage?.code}
+        </span>
         <span className="material-icons text-sm opacity-60">
           {isOpen ? 'expand_less' : 'expand_more'}
         </span>
@@ -66,7 +75,9 @@ export const LanguageSelector = ({ currentLocale }: { currentLocale: Locale }) =
               <span>{lang.flag}</span>
               <span>{lang.name}</span>
               {currentLocale === lang.code && (
-                <span className="material-icons text-mosque text-[16px] ml-auto">check</span>
+                <span className="material-icons text-mosque text-[16px] ml-auto">
+                  check
+                </span>
               )}
             </button>
           ))}

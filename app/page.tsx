@@ -1,15 +1,15 @@
 import { Suspense } from 'react'
-import { Navbar } from '../components/Navbar'
-import { SearchBar } from '../components/SearchBar'
-import { FilterButtons } from '../components/FilterButtons'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 import { FeaturedPropertyCard } from '../components/FeaturedPropertyCard'
-import { PropertyCard } from '../components/PropertyCard'
+import { FilterButtons } from '../components/FilterButtons'
+import { Navbar } from '../components/Navbar'
 import { Pagination } from '../components/Pagination'
+import { PropertyCard } from '../components/PropertyCard'
+import { SearchBar } from '../components/SearchBar'
 import {
   getFeaturedProperties,
   getNewMarketProperties,
 } from '../lib/properties'
-import { getDictionary } from '@/lib/i18n/getDictionary'
 
 interface HomeProps {
   searchParams: Promise<{
@@ -55,7 +55,9 @@ export default async function Home({ searchParams }: HomeProps) {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-nordic-dark leading-tight">
               {dict.home.heroTitle}{' '}
               <span className="relative inline-block">
-                <span className="relative z-10 font-medium">{dict.home.heroHighlight}</span>
+                <span className="relative z-10 font-medium">
+                  {dict.home.heroHighlight}
+                </span>
                 <span className="absolute bottom-2 left-0 w-full h-3 bg-mosque/20 -rotate-1 z-0"></span>
               </span>
               {dict.home.heroDot}
@@ -94,7 +96,9 @@ export default async function Home({ searchParams }: HomeProps) {
             <span className="text-sm text-nordic-muted">
               {dict.home.showing}{' '}
               <span className="font-semibold text-nordic-dark">{count}</span>{' '}
-              {count === 1 ? dict.home.properties.slice(0, -3) + 'y' : dict.home.properties}
+              {count === 1
+                ? dict.home.properties.slice(0, -3) + 'y'
+                : dict.home.properties}
               {filters.search && (
                 <>
                   {' '}
@@ -172,23 +176,39 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-light text-nordic-dark">
-                {hasActiveFilters ? dict.home.searchResults : dict.home.newMarketTitle}
+                {hasActiveFilters
+                  ? dict.home.searchResults
+                  : dict.home.newMarketTitle}
               </h2>
               <p className="text-nordic-muted mt-1 text-sm">
                 {hasActiveFilters
-                  ? (count === 1 ? dict.home.foundProperty : dict.home.foundProperties.replace('{count}', count.toString()))
+                  ? count === 1
+                    ? dict.home.foundProperty
+                    : dict.home.foundProperties.replace(
+                        '{count}',
+                        count.toString(),
+                      )
                   : dict.home.newMarketSubtitle}
               </p>
             </div>
             {!hasActiveFilters && (
               <div className="hidden md:flex bg-white p-1 rounded-lg">
-                <button type="button" className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">
+                <button
+                  type="button"
+                  className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm"
+                >
                   {dict.home.allBtn}
                 </button>
-                <button type="button" className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
+                <button
+                  type="button"
+                  className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark"
+                >
                   {dict.home.buyBtn}
                 </button>
-                <button type="button" className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
+                <button
+                  type="button"
+                  className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark"
+                >
                   {dict.home.rentBtn}
                 </button>
               </div>
