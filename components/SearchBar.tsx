@@ -1,9 +1,11 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
+import type { Dictionary } from '@/lib/i18n/getDictionary'
 
-export function SearchBar() {
+export function SearchBar({ dict }: { dict: Dictionary['home'] }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [value, setValue] = useState(searchParams.get('search') ?? '')
@@ -37,7 +39,7 @@ export function SearchBar() {
       </div>
       <input
         className="block w-full pl-12 pr-28 py-4 rounded-xl border-none bg-white text-nordic-dark shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white transition-all text-lg"
-        placeholder="Search by city, neighborhood, or address..."
+        placeholder={dict.searchPlaceholder}
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -55,7 +57,8 @@ export function SearchBar() {
         type="submit"
         className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-medium rounded-lg transition-colors flex items-center justify-center shadow-lg shadow-mosque/20"
       >
-        Search
+        <span className="material-icons sm:hidden">search</span>
+        <span className="hidden sm:inline-block">{dict.searchPlaceholder.split(' ')[0]}</span>
       </button>
     </form>
   )

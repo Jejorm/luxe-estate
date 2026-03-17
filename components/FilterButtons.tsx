@@ -3,21 +3,22 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { SearchFiltersModal } from './SearchFiltersModal'
 import { useState } from 'react'
+import type { Dictionary } from '@/lib/i18n/getDictionary'
 
-const TYPES = [
-  { label: 'All', value: 'all' },
-  { label: 'House', value: 'house' },
-  { label: 'Apartment', value: 'apartment' },
-  { label: 'Villa', value: 'villa' },
-  { label: 'Penthouse', value: 'penthouse' },
-]
-
-export const FilterButtons = () => {
+export const FilterButtons = ({ dict }: { dict: Dictionary['search'] }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
   const currentType = searchParams.get('type') ?? 'all'
+
+  const TYPES = [
+    { label: dict.allTypes, value: 'all' },
+    { label: dict.house, value: 'house' },
+    { label: dict.condo, value: 'apartment' },
+    { label: dict.villa, value: 'villa' },
+    { label: dict.penthouse, value: 'penthouse' },
+  ]
 
   const handleTypeClick = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -53,6 +54,7 @@ export const FilterButtons = () => {
         <div className="w-px h-6 bg-nordic-dark/10 mx-2" />
 
         <button
+          type="button"
           onClick={() => setIsFiltersOpen(true)}
           className="whitespace-nowrap flex items-center gap-1 px-4 py-2 rounded-full text-nordic-dark font-medium text-sm hover:bg-black/5 transition-colors"
         >

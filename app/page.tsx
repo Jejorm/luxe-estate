@@ -9,6 +9,7 @@ import {
   getFeaturedProperties,
   getNewMarketProperties,
 } from '../lib/properties'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 
 interface HomeProps {
   searchParams: Promise<{
@@ -24,6 +25,7 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams
+  const dict = await getDictionary()
 
   const currentPage = Math.max(1, Number(params.page) || 1)
 
@@ -51,12 +53,12 @@ export default async function Home({ searchParams }: HomeProps) {
         <section className="py-12 md:py-16">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-nordic-dark leading-tight">
-              Find your{' '}
+              {dict.home.heroTitle}{' '}
               <span className="relative inline-block">
-                <span className="relative z-10 font-medium">sanctuary</span>
+                <span className="relative z-10 font-medium">{dict.home.heroHighlight}</span>
                 <span className="absolute bottom-2 left-0 w-full h-3 bg-mosque/20 -rotate-1 z-0"></span>
               </span>
-              .
+              {dict.home.heroDot}
             </h1>
 
             {/* Search bar — client component */}
@@ -65,7 +67,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <div className="relative max-w-2xl mx-auto h-16 rounded-xl bg-white shadow-soft animate-pulse" />
               }
             >
-              <SearchBar />
+              <SearchBar dict={dict.home} />
             </Suspense>
 
             {/* Filter type pills + modal trigger — client component */}
@@ -81,7 +83,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 </div>
               }
             >
-              <FilterButtons />
+              <FilterButtons dict={dict.search} />
             </Suspense>
           </div>
         </section>
@@ -90,13 +92,13 @@ export default async function Home({ searchParams }: HomeProps) {
         {hasActiveFilters && (
           <div className="mb-6 flex items-center gap-2 flex-wrap">
             <span className="text-sm text-nordic-muted">
-              Showing{' '}
+              {dict.home.showing}{' '}
               <span className="font-semibold text-nordic-dark">{count}</span>{' '}
-              properties
+              {count === 1 ? dict.home.properties.slice(0, -3) + 'y' : dict.home.properties}
               {filters.search && (
                 <>
                   {' '}
-                  matching{' '}
+                  {dict.home.matching}{' '}
                   <span className="font-semibold text-mosque">
                     "{filters.search}"
                   </span>
@@ -116,24 +118,24 @@ export default async function Home({ searchParams }: HomeProps) {
                 {' – '}
                 {filters.maxPrice
                   ? `$${(filters.maxPrice / 1e6).toFixed(1)}M`
-                  : 'No limit'}
+                  : dict.home.noLimit}
               </span>
             )}
             {filters.minBeds && (
               <span className="px-3 py-1 bg-mosque/10 text-mosque text-xs font-medium rounded-full">
-                {filters.minBeds}+ beds
+                {filters.minBeds}+ {dict.home.beds}
               </span>
             )}
             {filters.minBaths && (
               <span className="px-3 py-1 bg-mosque/10 text-mosque text-xs font-medium rounded-full">
-                {filters.minBaths}+ baths
+                {filters.minBaths}+ {dict.home.baths}
               </span>
             )}
             <a
               href="/"
               className="ml-auto text-xs text-nordic-muted hover:text-nordic-dark underline underline-offset-2 transition-colors"
             >
-              Clear all
+              {dict.home.clearAll}
             </a>
           </div>
         )}
@@ -144,17 +146,17 @@ export default async function Home({ searchParams }: HomeProps) {
             <div className="flex items-end justify-between mb-8">
               <div>
                 <h2 className="text-2xl font-light text-nordic-dark">
-                  Featured Collections
+                  {dict.home.featuredTitle}
                 </h2>
                 <p className="text-nordic-muted mt-1 text-sm">
-                  Curated properties for the discerning eye.
+                  {dict.home.featuredSubtitle}
                 </p>
               </div>
               <a
                 className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity"
                 href="#"
               >
-                View all{' '}
+                {dict.home.viewAll}{' '}
                 <span className="material-icons text-sm">arrow_forward</span>
               </a>
             </div>
@@ -170,24 +172,24 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-light text-nordic-dark">
-                {hasActiveFilters ? 'Search Results' : 'New in Market'}
+                {hasActiveFilters ? dict.home.searchResults : dict.home.newMarketTitle}
               </h2>
               <p className="text-nordic-muted mt-1 text-sm">
                 {hasActiveFilters
-                  ? `${count} ${count === 1 ? 'property' : 'properties'} found.`
-                  : 'Fresh opportunities added this week.'}
+                  ? (count === 1 ? dict.home.foundProperty : dict.home.foundProperties.replace('{count}', count.toString()))
+                  : dict.home.newMarketSubtitle}
               </p>
             </div>
             {!hasActiveFilters && (
               <div className="hidden md:flex bg-white p-1 rounded-lg">
-                <button className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">
-                  All
+                <button type="button" className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">
+                  {dict.home.allBtn}
                 </button>
-                <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
-                  Buy
+                <button type="button" className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
+                  {dict.home.buyBtn}
                 </button>
-                <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
-                  Rent
+                <button type="button" className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">
+                  {dict.home.rentBtn}
                 </button>
               </div>
             )}
@@ -199,16 +201,16 @@ export default async function Home({ searchParams }: HomeProps) {
                 search_off
               </span>
               <p className="text-xl font-light text-nordic-dark">
-                No properties found
+                {dict.home.noProperties}
               </p>
               <p className="text-nordic-muted text-sm">
-                Try adjusting your filters or search terms.
+                {dict.home.adjustFilters}
               </p>
               <a
                 href="/"
                 className="inline-flex items-center gap-2 mt-4 px-6 py-2.5 bg-mosque text-white rounded-lg font-medium hover:bg-mosque/90 transition-colors"
               >
-                Clear filters
+                {dict.home.clearFilters}
               </a>
             </div>
           ) : (
