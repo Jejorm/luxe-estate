@@ -19,6 +19,7 @@ export async function updateUserRole(userId: string, newRole: AppRole) {
   }
 
   revalidatePath('/admin')
+  revalidatePath('/admin/users')
   return { success: true }
 }
 
@@ -35,5 +36,24 @@ export async function fetchAdminUsers() {
   return {
     success: true,
     data: data as { id: string; email: string; role: AppRole }[],
+  }
+}
+
+export async function fetchAdminProperties() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching admin properties:', error)
+    return { success: false, data: [] }
+  }
+
+  return {
+    success: true,
+    data,
   }
 }

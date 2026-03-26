@@ -7,6 +7,7 @@
   --color-nordic-dark: #19322F;
   --color-nordic-muted: #5C706D;
   --color-mosque: #006655;
+  --color-mosque-dark: #004d40;
   --color-hint-green: #D9ECC8;
   
   --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -14,6 +15,7 @@
 
   --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.05);
   --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-dropdown: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
 :root {
