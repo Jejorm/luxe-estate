@@ -9,62 +9,23 @@ interface PageProps {
 }
 
 export default async function AdminUsersPage({ searchParams }: PageProps) {
-  const usersRes = await fetchAdminUsers()
-  let users = usersRes.data || []
-
   const params = await searchParams
+  const page = typeof params.page === 'string' ? parseInt(params.page) : 1
+  const limit = 5
   const filter = typeof params?.filter === 'string' ? params.filter : 'all'
 
+  const { data = [], total } = await fetchAdminUsers(page, limit)
+  let users = data
+
+  // Note: Server-side filtering would be better, but keeping consistency with current logic
   if (filter === 'admins') {
     users = users.filter((u) => u.role === 'admin')
   }
 
+  const totalPages = Math.ceil(total / limit)
+
   return (
     <div className="bg-background-light text-nordic-dark font-sans min-h-screen flex flex-col antialiased">
-      {/* Navbar */}
-      <nav className="bg-white border-b border-nordic-dark/5 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between h-16">
-          <div className="flex items-center gap-12">
-            <Link href="/" className="shrink-0 flex items-center gap-2">
-              <span className="material-symbols-outlined text-mosque text-2xl">
-                apartment
-              </span>
-              <span className="font-bold text-lg text-nordic-dark tracking-tight">
-                LuxeEstate
-              </span>
-            </Link>
-            <div className="hidden md:flex space-x-8">
-              <Link
-                className="text-nordic-dark/60 hover:text-mosque px-1 py-2 text-sm font-medium transition-colors"
-                href="/admin"
-              >
-                Dashboard
-              </Link>
-              <Link
-                className="text-nordic-dark/60 hover:text-mosque px-1 py-2 text-sm font-medium transition-colors"
-                href="/admin/properties"
-              >
-                Properties
-              </Link>
-              <Link
-                className="text-mosque border-b-2 border-mosque px-1 py-2 text-sm font-medium"
-                href="/admin/users"
-              >
-                Users
-              </Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-5">
-            <Link
-              href="/"
-              className="text-nordic-dark/60 hover:text-mosque text-sm font-medium transition-colors"
-            >
-              Exit to App
-            </Link>
-          </div>
-        </div>
-      </nav>
-
       {/* Header */}
       <header className="w-full pt-8 pb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -121,14 +82,45 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
         )}
       </main>
 
-      {/* Footer */}
+      {/* Footer & Pagination */}
       <footer className="mt-auto border-t border-nordic-dark/5 bg-background-light py-6 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-sm text-nordic-dark/60">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-nordic-dark/60 order-2 sm:order-1">
             Showing{' '}
             <span className="font-medium text-nordic-dark">{users.length}</span>{' '}
+            of <span className="font-medium text-nordic-dark">{total}</span>{' '}
             users
           </p>
+
+          <div className="flex items-center gap-2 order-1 sm:order-2">
+            <Link
+              href={`/admin/users?page=${Math.max(1, page - 1)}&filter=${filter}`}
+              className={`flex items-center justify-center p-2 rounded-lg border border-nordic-dark/10 transition-colors ${
+                page <= 1
+                  ? 'bg-gray-50 text-gray-300 pointer-events-none'
+                  : 'bg-white text-nordic-dark hover:bg-nordic-dark hover:text-white'
+              }`}
+            >
+              <span className="material-symbols-outlined text-xl">
+                navigate_before
+              </span>
+            </Link>
+            <div className="flex items-center px-4 h-10 rounded-lg bg-white border border-nordic-dark/10 text-sm font-medium text-nordic-dark">
+              Page {page} of {totalPages || 1}
+            </div>
+            <Link
+              href={`/admin/users?page=${Math.min(totalPages, page + 1)}&filter=${filter}`}
+              className={`flex items-center justify-center p-2 rounded-lg border border-nordic-dark/10 transition-colors ${
+                page >= totalPages
+                  ? 'bg-gray-50 text-gray-300 pointer-events-none'
+                  : 'bg-white text-nordic-dark hover:bg-nordic-dark hover:text-white'
+              }`}
+            >
+              <span className="material-symbols-outlined text-xl">
+                navigate_next
+              </span>
+            </Link>
+          </div>
         </div>
       </footer>
     </div>

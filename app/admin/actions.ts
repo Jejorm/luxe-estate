@@ -23,37 +23,48 @@ export async function updateUserRole(userId: string, newRole: AppRole) {
   return { success: true }
 }
 
-export async function fetchAdminUsers() {
+export async function fetchAdminUsers(page = 1, limit = 10) {
   const supabase = await createClient()
 
-  const { data, error } = await supabase.rpc('get_admin_users')
+  const start = (page - 1) * limit
+  const end = start + limit - 1
+
+  const { data, error, count } = await supabase
+    .rpc('get_admin_users', {}, { count: 'exact' })
+    .range(start, end)
 
   if (error) {
     console.error('Error fetching admin users:', error)
-    return { success: false, data: [] }
+    return { success: false, data: [], total: 0 }
   }
 
   return {
     success: true,
     data: data as { id: string; email: string; role: AppRole }[],
+    total: count || 0,
   }
 }
 
-export async function fetchAdminProperties() {
+export async function fetchAdminProperties(page = 1, limit = 10) {
   const supabase = await createClient()
 
-  const { data, error } = await supabase
+  const start = (page - 1) * limit
+  const end = start + limit - 1
+
+  const { data, error, count } = await supabase
     .from('properties')
-    .select('*')
+    .select('*', { count: 'exact' })
     .order('created_at', { ascending: false })
+    .range(start, end)
 
   if (error) {
     console.error('Error fetching admin properties:', error)
-    return { success: false, data: [] }
+    return { success: false, data: [], total: 0 }
   }
 
   return {
     success: true,
     data,
+    total: count || 0,
   }
 }

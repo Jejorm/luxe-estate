@@ -91,14 +91,10 @@ export default function UserCard({ user }: UserCardProps) {
           type="button"
           disabled={loading}
           onClick={() => setIsOpen(!isOpen)}
-          className={`inline-flex items-center px-4 py-2 text-xs font-medium rounded-lg transition-colors w-full md:w-auto justify-center disabled:opacity-50 ${
-            isOpen
-              ? 'bg-mosque text-white shadow-md hover:bg-mosque-dark'
-              : 'border border-gray-200 bg-transparent text-nordic-dark/70 hover:border-nordic-dark hover:text-nordic-dark group-hover:bg-white group-hover:shadow-sm'
-          }`}
+          className="bg-mosque hover:bg-mosque-dark text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-sm transition-colors flex items-center gap-2 w-full md:w-auto justify-center disabled:opacity-50"
         >
           {loading ? 'Saving...' : 'Change Role'}
-          <span className="material-icons text-[16px] ml-2">
+          <span className="material-symbols-outlined text-[18px]">
             {isOpen ? 'expand_less' : 'expand_more'}
           </span>
         </button>
