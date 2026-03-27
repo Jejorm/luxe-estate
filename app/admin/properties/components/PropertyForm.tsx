@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase/client'
 import { Property, PropertyType, PropertyTagType } from '@/lib/properties'
 
 interface PropertyFormProps {
@@ -13,6 +13,7 @@ interface PropertyFormProps {
 
 export default function PropertyForm({ initialData }: PropertyFormProps) {
   const router = useRouter()
+  const supabase = createClient()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // State for db fields
@@ -461,6 +462,42 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                     placeholder="Street Address, City, Zip"
                     className="w-full px-4 py-2.5 rounded-md border border-gray-200 bg-white text-nordic-dark placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque transition-all text-sm"
                   />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="lat"
+                      className="block text-sm font-medium text-nordic-dark mb-1.5"
+                    >
+                      Latitud
+                    </label>
+                    <input
+                      type="number"
+                      id="lat"
+                      value={lat}
+                      onChange={(e) => setLat(e.target.value)}
+                      placeholder="ej. -34.6037"
+                      step="any"
+                      className="w-full px-4 py-2.5 rounded-md border border-gray-200 bg-white text-nordic-dark placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque transition-all text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="lng"
+                      className="block text-sm font-medium text-nordic-dark mb-1.5"
+                    >
+                      Longitud
+                    </label>
+                    <input
+                      type="number"
+                      id="lng"
+                      value={lng}
+                      onChange={(e) => setLng(e.target.value)}
+                      placeholder="ej. -58.3816"
+                      step="any"
+                      className="w-full px-4 py-2.5 rounded-md border border-gray-200 bg-white text-nordic-dark placeholder-gray-400 focus:ring-1 focus:ring-mosque focus:border-mosque transition-all text-sm"
+                    />
+                  </div>
                 </div>
                 <div className="relative h-48 w-full rounded-lg overflow-hidden bg-gray-100 border border-gray-200 group">
                   <Image
