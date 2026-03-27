@@ -86,7 +86,7 @@ export const Navbar = async () => {
 
             {user ? (
               <div className="flex items-center gap-4 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2">
-                <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
+                <div className="w-9 h-9 rounded-full bg-nordic-dark/5 flex items-center justify-center overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all shrink-0">
                   {avatarUrl ? (
                     <Image
                       alt={fullName ?? 'Profile'}
@@ -96,7 +96,7 @@ export const Navbar = async () => {
                       height={36}
                     />
                   ) : (
-                    <span className="material-icons text-nordic-dark text-lg flex items-center justify-center w-full h-full">
+                    <span className="material-symbols-rounded text-nordic-dark/40 text-xl leading-none select-none">
                       person
                     </span>
                   )}
@@ -104,7 +104,7 @@ export const Navbar = async () => {
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className="text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
+                    className="cursor-pointer text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
                   >
                     {dict.nav.signOut}
                   </button>

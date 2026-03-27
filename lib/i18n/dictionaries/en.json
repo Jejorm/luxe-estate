@@ -114,7 +114,25 @@
     "allRightsReserved": "All rights reserved."
   },
   "auth": {
-    "loginSubtitle": "Sign in to publish and manage your exclusive properties."
+    "loginSubtitle": "Sign in to publish and manage your exclusive properties.",
+    "email": "Email Address",
+    "password": "Password",
+    "signInBtn": "Sign In",
+    "signUpBtn": "Create Account",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "orContinueWith": "or continue with",
+    "errors": {
+      "invalid_credentials": "The email or password is incorrect.",
+      "email_exists": "This email is already registered.",
+      "default": "An unexpected error occurred. Please try again."
+    },
+    "messages": {
+      "check_email": "Check your email to confirm your account.",
+      "account_created": "Account created successfully."
+    }
   },
   "buyPage": {
     "title": "Find your dream home among our exclusive selection of properties for sale.",

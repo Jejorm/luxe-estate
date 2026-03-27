@@ -20,7 +20,10 @@ export const NavLink = ({
   const isActive = pathname === href
 
   return (
-    <Link href={href} className={`${className} ${isActive ? activeClassName : ''}`}>
+    <Link
+      href={href}
+      className={`${className} ${isActive ? activeClassName : ''}`}
+    >
       {children}
     </Link>
   )

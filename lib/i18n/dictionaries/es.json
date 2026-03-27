@@ -114,7 +114,25 @@
     "allRightsReserved": "Todos los derechos reservados."
   },
   "auth": {
-    "loginSubtitle": "Inicia sesión para publicar y gestionar tus propiedades exclusivas."
+    "loginSubtitle": "Inicia sesión para publicar y gestionar tus propiedades exclusivas.",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "signInBtn": "Iniciar Sesión",
+    "signUpBtn": "Crear Cuenta",
+    "noAccount": "¿No tienes una cuenta?",
+    "signUp": "Regístrate",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signIn": "Inicia sesión",
+    "orContinueWith": "o continuar con",
+    "errors": {
+      "invalid_credentials": "El correo o la contraseña son incorrectos.",
+      "email_exists": "Este correo ya está registrado.",
+      "default": "Ocurrió un error inesperado. Inténtalo de nuevo."
+    },
+    "messages": {
+      "check_email": "Revisa tu correo para confirmar tu cuenta.",
+      "account_created": "Cuenta creada con éxito."
+    }
   },
   "buyPage": {
     "title": "Encuentra el hogar de tus sueños entre nuestra selección exclusiva de propiedades en venta.",

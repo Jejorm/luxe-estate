@@ -70,7 +70,7 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
         <div className="flex items-center gap-5">
           {user && (
             <div className="flex items-center gap-3 pl-5 border-l border-nordic-dark/10">
-              <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
+              <div className="w-8 h-8 rounded-full bg-nordic-dark/5 flex items-center justify-center overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all shrink-0">
                 {user.avatar_url ? (
                   <Image
                     src={user.avatar_url}
@@ -80,11 +80,9 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-nordic-dark/5">
-                    <span className="material-icons text-nordic-dark/40 text-lg">
-                      person
-                    </span>
-                  </div>
+                  <span className="material-symbols-rounded text-nordic-dark/40 text-lg leading-none select-none">
+                    person
+                  </span>
                 )}
               </div>
               <form action={signOut}>

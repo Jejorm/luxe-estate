@@ -48,7 +48,7 @@ export const LanguageSelector = ({
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         disabled={isPending}
-        className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-nordic-dark hover:bg-nordic-dark/5 rounded-lg transition-colors"
+        className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-nordic-dark hover:bg-nordic-dark/5 rounded-lg transition-colors"
       >
         <span>{currentLanguage?.flag}</span>
         <span className="hidden sm:inline-block uppercase">
@@ -66,7 +66,7 @@ export const LanguageSelector = ({
               key={lang.code}
               type="button"
               onClick={() => handleLanguageChange(lang.code)}
-              className={`w-full text-left px-4 py-2 text-sm flex items-center gap-3 transition-colors ${
+              className={`cursor-pointer w-full text-left px-4 py-2 text-sm flex items-center gap-3 transition-colors ${
                 currentLocale === lang.code
                   ? 'bg-mosque/5 text-mosque font-medium'
                   : 'text-nordic-dark hover:bg-nordic-dark/5'

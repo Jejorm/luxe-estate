@@ -114,7 +114,25 @@
     "allRightsReserved": "Tous droits réservés."
   },
   "auth": {
-    "loginSubtitle": "Connectez-vous pour publier et gérer vos propriétés exclusives."
+    "loginSubtitle": "Connectez-vous pour publier et gérer vos propriétés exclusives.",
+    "email": "Adresse E-mail",
+    "password": "Mot de passe",
+    "signInBtn": "Se Connecter",
+    "signUpBtn": "Créer un Compte",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "signUp": "S'inscrire",
+    "haveAccount": "Vous avez déjà un compte ?",
+    "signIn": "Se connecter",
+    "orContinueWith": "ou continuer avec",
+    "errors": {
+      "invalid_credentials": "L'e-mail ou le mot de passe est incorrect.",
+      "email_exists": "Cet e-mail est déjà enregistré.",
+      "default": "Une erreur inattendue est survenue. Veuillez réessayer."
+    },
+    "messages": {
+      "check_email": "Vérifiez votre e-mail pour confirmer votre compte.",
+      "account_created": "Compte créé avec succès."
+    }
   },
   "buyPage": {
     "title": "Trouvez la maison de vos rêves parmi notre sélection exclusive de propriétés à vendre.",
