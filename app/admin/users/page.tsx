@@ -10,7 +10,7 @@ interface PageProps {
 
 export default async function AdminUsersPage({ searchParams }: PageProps) {
   const params = await searchParams
-  const page = typeof params.page === 'string' ? parseInt(params.page) : 1
+  const page = typeof params.page === 'string' ? parseInt(params.page, 10) : 1
   const limit = 5
   const filter = typeof params?.filter === 'string' ? params.filter : 'all'
 

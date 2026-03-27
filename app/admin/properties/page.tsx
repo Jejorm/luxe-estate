@@ -11,7 +11,7 @@ interface PageProps {
 
 export default async function AdminPropertiesPage({ searchParams }: PageProps) {
   const params = await searchParams
-  const page = typeof params.page === 'string' ? parseInt(params.page) : 1
+  const page = typeof params.page === 'string' ? parseInt(params.page, 10) : 1
   const limit = 5
 
   const { data: properties = [], total } = await fetchAdminProperties(

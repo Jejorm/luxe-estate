@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Property } from '@/lib/properties'
 
 export default function PropertiesList({
@@ -23,11 +24,11 @@ export default function PropertiesList({
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-lg bg-neutral-900 overflow-hidden shrink-0 border border-neutral-800 relative group-hover:border-emerald-500/40 transition-colors">
               {property.images?.[0] ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={property.images[0]}
                   alt={property.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               ) : (
                 <div className="w-full h-full bg-neutral-800 flex items-center justify-center text-neutral-600 text-xs">

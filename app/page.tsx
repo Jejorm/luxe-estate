@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import Link from 'next/link'
 import { getDictionary } from '@/lib/i18n/getDictionary'
 import { FeaturedPropertyCard } from '../components/FeaturedPropertyCard'
 import { FilterButtons } from '../components/FilterButtons'
@@ -156,13 +157,13 @@ export default async function Home({ searchParams }: HomeProps) {
                   {dict.home.featuredSubtitle}
                 </p>
               </div>
-              <a
+              <Link
                 className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity"
-                href="#"
+                href="/properties"
               >
                 {dict.home.viewAll}{' '}
                 <span className="material-icons text-sm">arrow_forward</span>
-              </a>
+              </Link>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {featuredProperties.map((property) => (

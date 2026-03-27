@@ -22,21 +22,15 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
   const [priceNumeric, setPriceNumeric] = useState(
     initialData?.price_numeric?.toString() || '',
   )
-  const [priceDisplay, setPriceDisplay] = useState(
-    initialData?.price_display || '',
-  )
+  const [priceDisplay] = useState(initialData?.price_display || '')
   const [isRent, setIsRent] = useState(initialData?.is_rent || false)
   const [propertyType, setPropertyType] = useState<PropertyType | ''>(
     initialData?.property_type || '',
   )
-  const [slug, setSlug] = useState(initialData?.slug || '')
-  const [tag, setTag] = useState(initialData?.tag || '')
-  const [tagType, setTagType] = useState<PropertyTagType | ''>(
-    initialData?.tag_type || '',
-  )
-  const [isFeatured, setIsFeatured] = useState<boolean>(
-    initialData?.is_featured || false,
-  )
+  const [slug] = useState(initialData?.slug || '')
+  const [tag] = useState(initialData?.tag || '')
+  const [tagType] = useState<PropertyTagType | ''>(initialData?.tag_type || '')
+  const [isFeatured] = useState<boolean>(initialData?.is_featured || false)
   const [isActive, setIsActive] = useState<boolean>(
     initialData?.is_active ?? true,
   )
@@ -92,7 +86,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
     setImages(images.filter((_, idx) => idx !== indexToRemove))
   }
 
-  const handleSubmit = async (e: React.FormEvent, isDraft = false) => {
+  const handleSubmit = async (e: React.FormEvent, _isDraft = false) => {
     e.preventDefault()
     setIsSubmitting(true)
 
@@ -406,7 +400,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
                   {images.map((img, idx) => (
                     <div
-                      key={idx}
+                      key={img}
                       className="aspect-square rounded-lg overflow-hidden relative group shadow-sm"
                     >
                       <Image
