@@ -48,6 +48,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
     images,
     lat,
     lng,
+    description,
   } = property
 
   return (
@@ -180,18 +181,24 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 About this home
               </h2>
               <div className="prose prose-slate max-w-none text-nordic-dark/70 leading-relaxed">
-                <p className="mb-4">
-                  Experience modern luxury with {title}, a stunning home located
-                  in {location}. Designed with an emphasis on indoor-outdoor
-                  living, the residence features high-end finishes that flood
-                  the interiors with natural light.
-                </p>
-                <p>
-                  The open-concept design is equipped with top-of-the-line
-                  appliances and custom cabinetry, perfect for culinary
-                  enthusiasts. Retreat to the primary suite, a sanctuary of
-                  relaxation with a spa-inspired bath.
-                </p>
+                {description ? (
+                  <p className="whitespace-pre-wrap">{description}</p>
+                ) : (
+                  <>
+                    <p className="mb-4">
+                      Experience modern luxury with {title}, a stunning home located
+                      in {location}. Designed with an emphasis on indoor-outdoor
+                      living, the residence features high-end finishes that flood
+                      the interiors with natural light.
+                    </p>
+                    <p>
+                      The open-concept design is equipped with top-of-the-line
+                      appliances and custom cabinetry, perfect for culinary
+                      enthusiasts. Retreat to the primary suite, a sanctuary of
+                      relaxation with a spa-inspired bath.
+                    </p>
+                  </>
+                )}
               </div>
               <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
                 Read more

@@ -30,6 +30,7 @@ export interface Property {
   is_featured: boolean
   is_active: boolean
   property_type: PropertyType | null
+  description?: string | null
   created_at: string
 }
 

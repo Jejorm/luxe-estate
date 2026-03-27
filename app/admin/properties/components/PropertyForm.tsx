@@ -51,7 +51,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
   const [images, setImages] = useState<string[]>(initialData?.images || [])
 
   // State for non-db form fields from template template
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState(initialData?.description || '')
   const [yearBuilt, setYearBuilt] = useState('')
   const [parking, setParking] = useState(0)
 
@@ -119,7 +119,8 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
       beds,
       baths,
       images,
-      // description, parking, yearBuilt omitted since not in DB interface yet
+      description: description.trim() ? description : null,
+      // parking, yearBuilt omitted since not in DB interface yet
     }
 
     try {
