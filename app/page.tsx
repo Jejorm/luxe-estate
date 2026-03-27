@@ -1,5 +1,5 @@
-import { Suspense } from 'react'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { getDictionary } from '@/lib/i18n/getDictionary'
 import { FeaturedPropertyCard } from '../components/FeaturedPropertyCard'
 import { FilterButtons } from '../components/FilterButtons'
