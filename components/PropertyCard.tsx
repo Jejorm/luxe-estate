@@ -18,7 +18,7 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
       href={`/properties/${property.slug}`}
       className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-4/3 overflow-hidden">
         <Image
           alt={property.title || 'Property'}
           className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -31,9 +31,9 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
         />
         <button
           type="button"
-          className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark"
+          className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark cursor-pointer z-10"
         >
-          <span className="material-icons text-lg">favorite_border</span>
+          <span className="material-icons text-lg leading-none">favorite_border</span>
         </button>
         {property.tag && (
           <div
@@ -43,7 +43,7 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
           </div>
         )}
       </div>
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-4 flex flex-col grow">
         <div className="flex justify-between items-baseline mb-2">
           <h3 className="font-bold text-lg text-nordic-dark">
             {property.price_display}

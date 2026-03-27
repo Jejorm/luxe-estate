@@ -12,7 +12,7 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
       href={`/properties/${property.slug}`}
       className="group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer block"
     >
-      <div className="aspect-[4/3] w-full overflow-hidden relative">
+      <div className="aspect-4/3 w-full overflow-hidden relative">
         <Image
           alt={property.title || 'Property'}
           className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -30,11 +30,11 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
         )}
         <button
           type="button"
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all"
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all cursor-pointer z-10"
         >
-          <span className="material-icons text-xl">favorite_border</span>
+          <span className="material-icons text-xl leading-none">favorite_border</span>
         </button>
-        <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+        <div className="absolute bottom-0 inset-x-0 h-1/2 bg-linear-to-t from-black/60 to-transparent opacity-60"></div>
       </div>
       <div className="p-6 relative">
         <div className="flex justify-between items-start mb-2">
