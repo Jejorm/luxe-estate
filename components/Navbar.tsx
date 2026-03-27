@@ -14,6 +14,16 @@ export const Navbar = async () => {
     data: { user },
   } = await supabase.auth.getUser()
 
+  let userRole = null
+  if (user) {
+    const { data } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+    userRole = data?.role
+  }
+
   const avatarUrl = user?.user_metadata?.avatar_url as string | undefined
   const fullName = user?.user_metadata?.full_name as string | undefined
 
@@ -48,7 +58,7 @@ export const Navbar = async () => {
             </Link>
             <Link
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="/sell"
+              href={userRole === 'admin' ? '/admin' : '/login'}
             >
               {dict.nav.sell}
             </Link>
