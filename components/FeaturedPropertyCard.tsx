@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import type { Property } from '../lib/properties'
 
@@ -12,13 +13,15 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
       className="group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer block"
     >
       <div className="aspect-[4/3] w-full overflow-hidden relative">
-        <img
+        <Image
           alt={property.title || 'Property'}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
           src={
             property.images?.[0] ||
             'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80'
           }
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {property.tag && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark">

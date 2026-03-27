@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import type { Property } from '../lib/properties'
 
@@ -18,13 +19,15 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
       className={`block bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
+        <Image
           alt={property.title || 'Property'}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
           src={
             property.images?.[0] ||
             'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80'
           }
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <button
           type="button"

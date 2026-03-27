@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState } from 'react'
 
 interface PropertyGalleryProps {
@@ -21,10 +22,13 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
     <div className="col-span-1 lg:col-span-8 space-y-4">
       {/* Main Image */}
       <div className="relative aspect-[16/10] overflow-hidden rounded-xl shadow-sm group">
-        <img
+        <Image
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
           src={displayImages[mainImageIndex]}
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 84vw"
         />
         <div className="absolute top-4 left-4 flex gap-2">
           <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
@@ -50,17 +54,19 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
             <button
               key={img}
               type="button"
-              className={`flex-none w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-opacity ${
+              className={`relative flex-none w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-opacity ${
                 mainImageIndex === idx
                   ? 'ring-2 ring-mosque ring-offset-2 ring-offset-background-light opacity-100'
                   : 'opacity-70 hover:opacity-100'
               }`}
               onClick={() => setMainImageIndex(idx)}
             >
-              <img
+              <Image
                 alt={`${title} thumbnail ${idx + 1}`}
-                className="w-full h-full object-cover"
+                className="object-cover"
                 src={img}
+                fill
+                sizes="192px"
               />
             </button>
           ))}
