@@ -415,7 +415,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                         fill
                         className="object-cover"
                       />
-                      <div className="absolute inset-0 bg-nordic-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-[2px]">
+                      <div className="absolute inset-0 bg-nordic-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-2px">
                         <button
                           onClick={() => removeImage(idx)}
                           type="button"

@@ -51,7 +51,7 @@ export const PropertyMap = ({ lat, lng, address }: PropertyMapProps) => {
           href={`https://maps.google.com/?q=${lat},${lng}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-4 right-2 z-[400] bg-white/90 text-xs font-medium px-2 py-1 rounded shadow-sm text-nordic-dark hover:text-mosque"
+          className="absolute bottom-4 right-2 z-400 bg-white/90 text-xs font-medium px-2 py-1 rounded shadow-sm text-nordic-dark hover:text-mosque"
         >
           View on Map
         </a>

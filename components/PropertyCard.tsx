@@ -16,7 +16,7 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
   return (
     <Link
       href={`/properties/${property.slug}`}
-      className={`block bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}
+      className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
