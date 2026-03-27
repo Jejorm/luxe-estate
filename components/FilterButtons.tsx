@@ -38,13 +38,15 @@ export const FilterButtons = ({ dict }: { dict: Dictionary['search'] }) => {
           const isActive = currentType === value
           return (
             <button
+              type="button"
               key={value}
               onClick={() => handleTypeClick(value)}
-              className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all hover:-translate-y-0.5 ${
-                isActive
-                  ? 'bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10'
-                  : 'bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5'
-              }`}
+              className={`flex-none px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap
+                ${
+                  isActive
+                    ? 'bg-mosque text-white shadow-lg shadow-mosque/20 scale-105'
+                    : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-100 hover:border-gray-200'
+                }`}
             >
               {label}
             </button>

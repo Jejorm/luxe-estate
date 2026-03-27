@@ -62,7 +62,7 @@ export function SearchFiltersModal({
       setBeds(Number(searchParams.get('minBeds') ?? 0))
       setBaths(Number(searchParams.get('minBaths') ?? 0))
     }
-  }, [isOpen]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isOpen, searchParams])
 
   // Close on Escape
   useEffect(() => {
@@ -127,7 +127,7 @@ export function SearchFiltersModal({
 
   // Drag handling for the dual-range slider
   const handleTrackMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLElement>) => {
       if (!dragging) return
       const rect = e.currentTarget.getBoundingClientRect()
       const pct = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1)
@@ -158,9 +158,11 @@ export function SearchFiltersModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm"
+      <button
+        type="button"
+        className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm cursor-default w-full h-full"
         onClick={onClose}
+        aria-label="Close filters"
       />
 
       {/* Modal */}
@@ -178,6 +180,7 @@ export function SearchFiltersModal({
             )}
           </div>
           <button
+            type="button"
             onClick={onClose}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500"
           >
@@ -192,7 +195,10 @@ export function SearchFiltersModal({
         >
           {/* Section 1: Location */}
           <section>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+            <label
+              htmlFor="location-input"
+              className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3"
+            >
               Location
             </label>
             <div className="relative group">
@@ -200,6 +206,7 @@ export function SearchFiltersModal({
                 location_on
               </span>
               <input
+                id="location-input"
                 className="w-full pl-12 pr-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-mosque focus:bg-white transition-all shadow-sm"
                 placeholder="City, neighborhood, or address"
                 type="text"
@@ -212,9 +219,9 @@ export function SearchFiltersModal({
           {/* Section 2: Price Range */}
           <section>
             <div className="flex justify-between items-end mb-4">
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <span className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
                 Price Range
-              </label>
+              </span>
               <span className="text-sm font-medium text-mosque">
                 {minPrice === 0 ? 'Any' : formatPrice(minPrice)} –{' '}
                 {maxPrice >= MAX_PRICE ? 'No limit' : formatPrice(maxPrice)}
@@ -222,12 +229,13 @@ export function SearchFiltersModal({
             </div>
 
             {/* Dual Slider */}
-            <div
-              className="relative h-12 flex items-center mb-6 px-2 cursor-pointer select-none"
+            <fieldset
+              className="relative h-12 flex items-center mb-6 px-2 cursor-pointer select-none border-0 p-0 m-0"
               onMouseMove={handleTrackMouseMove}
               onMouseUp={() => setDragging(null)}
               onMouseLeave={() => setDragging(null)}
             >
+              <legend className="sr-only">Price range slider</legend>
               <div className="absolute inset-x-2 h-1 bg-gray-200 rounded-full" />
               <div
                 className="absolute h-1 bg-mosque rounded-full"
@@ -241,44 +249,67 @@ export function SearchFiltersModal({
                 className="absolute w-6 h-6 bg-white border-2 border-mosque rounded-full shadow-md cursor-grab active:cursor-grabbing hover:scale-110 transition-transform z-10"
                 style={{ left: `calc(${minPct}% + 8px - 12px)` }}
                 onMouseDown={() => setDragging('min')}
+                role="slider"
+                aria-label="Minimum Price"
+                aria-valuenow={minPrice}
+                aria-valuemin={MIN_PRICE}
+                aria-valuemax={maxPrice}
+                tabIndex={0}
               />
               {/* Max handle */}
               <div
                 className="absolute w-6 h-6 bg-white border-2 border-mosque rounded-full shadow-md cursor-grab active:cursor-grabbing hover:scale-110 transition-transform z-10"
                 style={{ left: `calc(${maxPct}% + 8px - 12px)` }}
                 onMouseDown={() => setDragging('max')}
+                role="slider"
+                aria-label="Maximum Price"
+                aria-valuenow={maxPrice}
+                aria-valuemin={minPrice}
+                aria-valuemax={MAX_PRICE}
+                tabIndex={0}
               />
-            </div>
+            </fieldset>
 
             {/* Price inputs */}
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 p-3 rounded-lg border border-transparent focus-within:border-mosque/30 transition-colors">
-                <label className="block text-[10px] text-gray-500 uppercase font-medium mb-1">
+                <label
+                  htmlFor="min-price-input"
+                  className="block text-[10px] text-gray-500 uppercase font-medium mb-1"
+                >
                   Min Price
                 </label>
                 <div className="flex items-center">
                   <span className="text-gray-400 mr-1">$</span>
                   <input
+                    id="min-price-input"
                     className="w-full bg-transparent border-0 p-0 text-gray-900 font-medium focus:ring-0 text-sm"
                     type="text"
                     value={minPrice === 0 ? '' : minPrice.toLocaleString()}
                     placeholder="0"
                     onChange={(e) => {
-                      const val = parseInt(e.target.value.replace(/,/g, ''), 10)
+                      const val = Number.parseInt(
+                        e.target.value.replace(/,/g, ''),
+                        10,
+                      )
                       setMinPrice(
-                        isNaN(val) ? 0 : Math.min(val, maxPrice - STEP),
+                        Number.isNaN(val) ? 0 : Math.min(val, maxPrice - STEP),
                       )
                     }}
                   />
                 </div>
               </div>
               <div className="bg-gray-50 p-3 rounded-lg border border-transparent focus-within:border-mosque/30 transition-colors">
-                <label className="block text-[10px] text-gray-500 uppercase font-medium mb-1">
+                <label
+                  htmlFor="max-price-input"
+                  className="block text-[10px] text-gray-500 uppercase font-medium mb-1"
+                >
                   Max Price
                 </label>
                 <div className="flex items-center">
                   <span className="text-gray-400 mr-1">$</span>
                   <input
+                    id="max-price-input"
                     className="w-full bg-transparent border-0 p-0 text-gray-900 font-medium focus:ring-0 text-sm"
                     type="text"
                     value={
@@ -286,9 +317,14 @@ export function SearchFiltersModal({
                     }
                     placeholder="No limit"
                     onChange={(e) => {
-                      const val = parseInt(e.target.value.replace(/,/g, ''), 10)
+                      const val = Number.parseInt(
+                        e.target.value.replace(/,/g, ''),
+                        10,
+                      )
                       setMaxPrice(
-                        isNaN(val) ? MAX_PRICE : Math.max(val, minPrice + STEP),
+                        Number.isNaN(val)
+                          ? MAX_PRICE
+                          : Math.max(val, minPrice + STEP),
                       )
                     }}
                   />
@@ -301,11 +337,15 @@ export function SearchFiltersModal({
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Property Type */}
             <div className="space-y-3">
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <label
+                htmlFor="property-type-select"
+                className="block text-xs font-semibold text-gray-500 uppercase tracking-wider"
+              >
                 Property Type
               </label>
               <div className="relative">
                 <select
+                  id="property-type-select"
                   className="w-full bg-gray-50 border-0 rounded-lg py-3 pl-4 pr-10 text-gray-900 appearance-none focus:ring-2 focus:ring-mosque cursor-pointer"
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
@@ -386,9 +426,9 @@ export function SearchFiltersModal({
 
           {/* Section 4: Amenities */}
           <section>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
+            <span className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
               Amenities &amp; Features
-            </label>
+            </span>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {AMENITIES.map((amenity) => {
                 const active = selectedAmenities.has(amenity.id)
@@ -428,12 +468,14 @@ export function SearchFiltersModal({
         {/* Footer */}
         <footer className="bg-white border-t border-gray-100 px-8 py-6 sticky bottom-0 z-30 flex items-center justify-between">
           <button
+            type="button"
             onClick={clearAll}
             className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors underline decoration-gray-300 underline-offset-4"
           >
             Clear all filters
           </button>
           <button
+            type="button"
             onClick={applyFilters}
             className="bg-mosque hover:bg-mosque/90 text-white px-8 py-3 rounded-lg font-medium shadow-lg shadow-mosque/30 transition-all hover:shadow-mosque/40 flex items-center gap-2 active:scale-95"
           >

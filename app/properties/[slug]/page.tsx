@@ -186,10 +186,10 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 ) : (
                   <>
                     <p className="mb-4">
-                      Experience modern luxury with {title}, a stunning home located
-                      in {location}. Designed with an emphasis on indoor-outdoor
-                      living, the residence features high-end finishes that flood
-                      the interiors with natural light.
+                      Experience modern luxury with {title}, a stunning home
+                      located in {location}. Designed with an emphasis on
+                      indoor-outdoor living, the residence features high-end
+                      finishes that flood the interiors with natural light.
                     </p>
                     <p>
                       The open-concept design is equipped with top-of-the-line

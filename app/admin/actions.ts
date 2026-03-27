@@ -69,10 +69,7 @@ export async function fetchAdminProperties(page = 1, limit = 10) {
   }
 }
 
-export async function togglePropertyActive(
-  id: string,
-  currentActive: boolean,
-) {
+export async function togglePropertyActive(id: string, currentActive: boolean) {
   const supabase = await createClient()
 
   const { error } = await supabase

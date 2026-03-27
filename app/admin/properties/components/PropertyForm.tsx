@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
-import { Property, PropertyType, PropertyTagType } from '@/lib/properties'
+import { useState } from 'react'
 import { DynamicPropertyMap } from '@/components/DynamicPropertyMap'
+import type { Property, PropertyTagType, PropertyType } from '@/lib/properties'
+import { createClient } from '@/lib/supabase/client'
 
 interface PropertyFormProps {
   initialData?: Property | null
@@ -313,7 +313,9 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                     description
                   </span>
                 </div>
-                <h2 className="text-xl font-bold text-nordic-dark">Description</h2>
+                <h2 className="text-xl font-bold text-nordic-dark">
+                  Description
+                </h2>
               </div>
               <div className="p-8">
                 <div className="mb-3 flex gap-2 border-b border-gray-100 pb-2">
@@ -364,7 +366,9 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                       image
                     </span>
                   </div>
-                  <h2 className="text-xl font-bold text-nordic-dark">Gallery</h2>
+                  <h2 className="text-xl font-bold text-nordic-dark">
+                    Gallery
+                  </h2>
                 </div>
                 <span className="text-xs font-medium text-gray-400 bg-gray-50 border border-gray-100 px-2 py-1 rounded">
                   JPG, PNG, WEBP
@@ -505,7 +509,10 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                     />
                   </div>
                 </div>
-                {lat && lng && !Number.isNaN(Number(lat)) && !Number.isNaN(Number(lng)) ? (
+                {lat &&
+                lng &&
+                !Number.isNaN(Number(lat)) &&
+                !Number.isNaN(Number(lng)) ? (
                   <div className="w-full mt-2">
                     <DynamicPropertyMap
                       lat={Number(lat)}
@@ -737,13 +744,18 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="px-6 py-4 border-b border-hint-green/30 flex items-center gap-3 bg-linear-to-r from-hint-green/10 to-transparent">
                 <div className="w-8 h-8 rounded-full bg-hint-green flex items-center justify-center text-nordic-dark">
-                  <span className="material-symbols-outlined text-lg">visibility</span>
+                  <span className="material-symbols-outlined text-lg">
+                    visibility
+                  </span>
                 </div>
-                <h2 className="text-lg font-bold text-nordic-dark">Visibility</h2>
+                <h2 className="text-lg font-bold text-nordic-dark">
+                  Visibility
+                </h2>
               </div>
               <div className="p-6">
                 <p className="text-sm text-gray-500 mb-4">
-                  Hidden properties won&apos;t appear on the public site or search filters.
+                  Hidden properties won&apos;t appear on the public site or
+                  search filters.
                 </p>
                 <button
                   type="button"
@@ -758,7 +770,9 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                     <span className="material-symbols-outlined text-lg">
                       {isActive ? 'visibility' : 'visibility_off'}
                     </span>
-                    {isActive ? 'Published — Visible to users' : 'Hidden — Not visible publicly'}
+                    {isActive
+                      ? 'Published — Visible to users'
+                      : 'Hidden — Not visible publicly'}
                   </span>
                   <span
                     className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${

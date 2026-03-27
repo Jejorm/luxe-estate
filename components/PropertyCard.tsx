@@ -26,7 +26,10 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
             'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80'
           }
         />
-        <button className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
+        <button
+          type="button"
+          className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark"
+        >
           <span className="material-icons text-lg">favorite_border</span>
         </button>
         {property.tag && (

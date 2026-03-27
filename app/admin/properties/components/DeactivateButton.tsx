@@ -39,7 +39,11 @@ export function DeactivateButton({ id, isActive }: DeactivateButtonProps) {
       }`}
     >
       <span className="material-symbols-outlined text-xl">
-        {loading ? 'hourglass_empty' : isActive ? 'visibility_off' : 'visibility'}
+        {loading
+          ? 'hourglass_empty'
+          : isActive
+            ? 'visibility_off'
+            : 'visibility'}
       </span>
     </button>
   )

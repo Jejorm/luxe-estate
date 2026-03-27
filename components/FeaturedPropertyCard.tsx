@@ -25,7 +25,10 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
             {property.tag}
           </div>
         )}
-        <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all">
+        <button
+          type="button"
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all"
+        >
           <span className="material-icons text-xl">favorite_border</span>
         </button>
         <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
