@@ -30,25 +30,34 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
   }
 
   return (
-    <nav className="bg-white border-b border-nordic-dark/5 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex items-center justify-between h-16">
+    <nav className="bg-white border-b border-nordic-dark/5 px-4 sm:px-6 lg:px-8 sticky top-0 z-50 backdrop-blur-md bg-white/95">
+      <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
         <div className="flex items-center gap-12">
-          <Link href="/" className="shrink-0 flex items-center gap-2">
-            <span className="material-symbols-outlined text-mosque text-2xl">
-              apartment
-            </span>
-            <span className="font-bold text-lg text-nordic-dark tracking-tight">
-              LuxeEstate
-            </span>
+          <Link href="/">
+            <div className="shrink-0 flex items-center gap-3 cursor-pointer group">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-nordic-dark text-white group-hover:bg-mosque transition-all shadow-sm">
+                <span className="material-icons text-lg">arrow_back</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center group-hover:bg-mosque transition-colors shadow-sm">
+                  <span className="material-icons text-white text-lg">
+                    apartment
+                  </span>
+                </div>
+                <span className="text-xl font-semibold tracking-tight text-nordic-dark group-hover:text-mosque transition-colors">
+                  LuxeEstate
+                </span>
+              </div>
+            </div>
           </Link>
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-1">
             {links.map((link) => (
               <Link
                 key={link.href}
-                className={`px-1 py-2 text-sm font-medium transition-colors ${
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
                   isActive(link.href)
-                    ? 'text-mosque border-b-2 border-mosque'
-                    : 'text-nordic-dark/60 hover:text-mosque'
+                    ? 'bg-nordic-dark/5 text-nordic-dark shadow-sm ring-1 ring-nordic-dark/5'
+                    : 'text-nordic-dark/60 hover:text-nordic-dark hover:bg-nordic-dark/5'
                 }`}
                 href={link.href}
               >
@@ -59,13 +68,6 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
         </div>
 
         <div className="flex items-center gap-5">
-          <Link
-            href="/"
-            className="hidden sm:block text-nordic-dark/60 hover:text-mosque text-sm font-medium transition-colors"
-          >
-            Exit to App
-          </Link>
-
           {user && (
             <div className="flex items-center gap-3 pl-5 border-l border-nordic-dark/10">
               <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all">
@@ -79,7 +81,7 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-nordic-dark/5">
-                    <span className="material-symbols-outlined text-nordic-dark/40 text-lg">
+                    <span className="material-icons text-nordic-dark/40 text-lg">
                       person
                     </span>
                   </div>

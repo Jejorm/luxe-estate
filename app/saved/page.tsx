@@ -10,14 +10,19 @@ export default async function SavedPropertiesPage() {
   return (
     <div className="bg-background-light min-h-screen">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="mb-8">
-          <h1 className="text-3xl font-light text-nordic-dark">
-            {dict.nav.savedHomes}
-          </h1>
-          <p className="text-nordic-muted mt-2">
-            {favoriteProperties.length} {dict.home.properties}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-28">
+        <div className="mb-24 text-center">
+          <p className="mt-12  text-2xl md:text-3xl font-light text-nordic-dark/80 tracking-wide leading-relaxed max-w-3xl mx-auto italic">
+            "Tus favoritos en un solo lugar: una selección curada de las
+            propiedades que capturaron tu atención."
           </p>
+          <div className="h-px w-24 bg-nordic-dark/10 mx-auto mt-12" />
+        </div>
+
+        <div className="flex items-center justify-between mb-8 border-b border-nordic-dark/5 pb-4">
+          <span className="text-sm font-medium text-nordic-dark/40 uppercase tracking-widest">
+            {favoriteProperties.length} {dict.home.properties} guardadas
+          </span>
         </div>
 
         {favoriteProperties.length === 0 ? (

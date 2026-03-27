@@ -15,23 +15,28 @@ export default async function RentPage({
 
   const currentPage = Math.max(1, Number(params.page) || 1)
 
-  const { data: properties, totalPages } = await getNewMarketProperties(
-    currentPage,
-    12,
-    { type: 'rent' },
-  )
+  const {
+    data: properties,
+    totalPages,
+    count,
+  } = await getNewMarketProperties(currentPage, 12, { type: 'rent' })
 
   return (
     <div className="bg-background-light min-h-screen">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-light text-nordic-dark">
-            {dict.nav.rent} Properties
-          </h1>
-          <p className="text-nordic-muted mt-2">
-            Explore our curated collection of properties for rent.
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-28">
+        <div className="mb-24 text-center">
+          <p className="mt-12 text-2xl md:text-3xl font-light text-nordic-dark/80 tracking-wide leading-relaxed max-w-3xl mx-auto italic">
+            "Explorá nuestra colección de residencias exclusivas disponibles
+            para alquiler."
           </p>
+          <div className="h-px w-24 bg-nordic-dark/10 mx-auto mt-12" />
+        </div>
+
+        <div className="flex items-center justify-between mb-8 border-b border-nordic-dark/5 pb-4">
+          <span className="text-sm font-medium text-nordic-dark/40 uppercase tracking-widest">
+            {count} {dict.home.properties} disponibles
+          </span>
         </div>
 
         {properties.length === 0 ? (

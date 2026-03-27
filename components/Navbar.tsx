@@ -4,6 +4,7 @@ import { signOut } from '@/app/actions/auth'
 import { getCurrentLocale, getDictionary } from '@/lib/i18n/getDictionary'
 import { createClient } from '@/lib/supabase/server'
 import { LanguageSelector } from './LanguageSelector'
+import { NavLink } from './NavLink'
 
 export const Navbar = async () => {
   const dict = await getDictionary()
@@ -27,6 +28,8 @@ export const Navbar = async () => {
   const avatarUrl = user?.user_metadata?.avatar_url as string | undefined
   const fullName = user?.user_metadata?.full_name as string | undefined
 
+  const sellHref = user ? (userRole === 'admin' ? '/admin' : '/') : '/login'
+
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95 backdrop-blur-md border-b border-nordic-dark/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,47 +46,43 @@ export const Navbar = async () => {
               </span>
             </div>
           </Link>
-          <div className="hidden md:flex items-center space-x-8">
-            <Link
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
+          <div className="hidden md:flex items-center space-x-2">
+            {userRole === 'admin' && (
+              <NavLink
+                className="bg-nordic-dark text-white hover:bg-mosque font-semibold text-sm px-5 py-2.5 rounded-full transition-all flex items-center gap-2 shadow-lg hover:shadow-mosque/20 mr-4 group"
+                activeClassName="!bg-mosque ring-4 ring-mosque/10"
+                href="/admin"
+              >
+                <span className="material-icons text-lg group-hover:rotate-12 transition-transform">
+                  admin_panel_settings
+                </span>
+                {dict.nav.manageProperties}
+              </NavLink>
+            )}
+            <NavLink
+              className="text-nordic-dark/60 hover:text-nordic-dark hover:bg-nordic-dark/5 font-medium text-sm px-4 py-2 rounded-full transition-all"
+              activeClassName="!text-nordic-dark !bg-nordic-dark/10 shadow-sm ring-1 ring-nordic-dark/5"
               href="/buy"
             >
               {dict.nav.buy}
-            </Link>
-            <Link
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
+            </NavLink>
+            <NavLink
+              className="text-nordic-dark/60 hover:text-nordic-dark hover:bg-nordic-dark/5 font-medium text-sm px-4 py-2 rounded-full transition-all"
+              activeClassName="!text-nordic-dark !bg-nordic-dark/10 shadow-sm ring-1 ring-nordic-dark/5"
               href="/rent"
             >
               {dict.nav.rent}
-            </Link>
-            <Link
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href={user ? (userRole === 'admin' ? '/admin' : '/') : '/login'}
-            >
-              {dict.nav.sell}
-            </Link>
-            <Link
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
+            </NavLink>
+            <NavLink
+              className="text-nordic-dark/60 hover:text-nordic-dark hover:bg-nordic-dark/5 font-medium text-sm px-4 py-2 rounded-full transition-all"
+              activeClassName="!text-nordic-dark !bg-nordic-dark/10 shadow-sm ring-1 ring-nordic-dark/5"
               href="/saved"
             >
               {dict.nav.savedHomes}
-            </Link>
+            </NavLink>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-6">
             <LanguageSelector currentLocale={locale} />
-            <button
-              type="button"
-              className="text-nordic-dark hover:text-mosque transition-colors hidden sm:block"
-            >
-              <span className="material-icons">search</span>
-            </button>
-            <button
-              type="button"
-              className="text-nordic-dark hover:text-mosque transition-colors relative hidden sm:block"
-            >
-              <span className="material-icons">notifications_none</span>
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background-light" />
-            </button>
 
             {user ? (
               <div className="flex items-center gap-4 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2">
