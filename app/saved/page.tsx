@@ -20,9 +20,20 @@ export default async function SavedPropertiesPage() {
         </div>
 
         <div className="flex items-center justify-between mb-8 border-b border-nordic-dark/5 pb-4">
-          <span className="text-sm font-medium text-nordic-dark/40 uppercase tracking-widest">
-            {favoriteProperties.length} {dict.home.properties} guardadas
-          </span>
+          <div className="inline-flex items-center gap-4 bg-white px-6 py-3 rounded-full border border-nordic-dark/5 shadow-soft">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-mosque opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-mosque"></span>
+            </span>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-mosque leading-none">
+                {favoriteProperties.length}
+              </span>
+              <span className="text-xs font-bold text-nordic-dark/60 uppercase tracking-[0.2em] leading-none">
+                {dict.home.properties} guardadas
+              </span>
+            </div>
+          </div>
         </div>
 
         {favoriteProperties.length === 0 ? (
