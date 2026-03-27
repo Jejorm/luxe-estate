@@ -1,16 +1,12 @@
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { getDictionary } from '@/lib/i18n/getDictionary'
-import { FeaturedPropertyCard } from '../components/FeaturedPropertyCard'
 import { FilterButtons } from '../components/FilterButtons'
 import { Navbar } from '../components/Navbar'
 import { Pagination } from '../components/Pagination'
 import { PropertyCard } from '../components/PropertyCard'
 import { SearchBar } from '../components/SearchBar'
-import {
-  getFeaturedProperties,
-  getNewMarketProperties,
-} from '../lib/properties'
+import { getNewMarketProperties } from '../lib/properties'
 
 interface HomeProps {
   searchParams: Promise<{
@@ -44,11 +40,11 @@ export default async function Home({ searchParams }: HomeProps) {
     ([k, v]) => k !== 'type' && v !== undefined,
   )
 
-  const [featuredProperties, { data: newMarketProperties, totalPages, count }] =
-    await Promise.all([
-      getFeaturedProperties(),
-      getNewMarketProperties(currentPage, 8, filters),
-    ])
+  const {
+    data: newMarketProperties,
+    totalPages,
+    count,
+  } = await getNewMarketProperties(currentPage, 8, filters)
 
   return (
     <div className="bg-background-light min-h-screen">
@@ -146,34 +142,6 @@ export default async function Home({ searchParams }: HomeProps) {
               {dict.home.clearAll}
             </a>
           </div>
-        )}
-
-        {/* Featured Collections — only shown when no active filters */}
-        {!hasActiveFilters && (
-          <section className="mb-16">
-            <div className="flex items-end justify-between mb-8">
-              <div>
-                <h2 className="text-2xl font-light text-nordic-dark">
-                  {dict.home.featuredTitle}
-                </h2>
-                <p className="text-nordic-muted mt-1 text-sm">
-                  {dict.home.featuredSubtitle}
-                </p>
-              </div>
-              <Link
-                className="hidden sm:flex items-center gap-1 text-sm font-medium text-mosque hover:opacity-70 transition-opacity"
-                href="/properties"
-              >
-                {dict.home.viewAll}{' '}
-                <span className="material-icons text-sm">arrow_forward</span>
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {featuredProperties.map((property) => (
-                <FeaturedPropertyCard key={property.id} property={property} />
-              ))}
-            </div>
-          </section>
         )}
 
         <section>

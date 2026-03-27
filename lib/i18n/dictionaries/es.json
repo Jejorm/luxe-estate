@@ -17,8 +17,6 @@
     "properties": "propiedades",
     "matching": "que coinciden con",
     "clearAll": "Borrar todo",
-    "featuredTitle": "Colecciones Destacadas",
-    "featuredSubtitle": "Propiedades exclusivas para los más exigentes.",
     "viewAll": "Ver todo",
     "searchResults": "Resultados de búsqueda",
     "newMarketTitle": "Novedades en el Mercado",
@@ -117,5 +115,19 @@
   },
   "auth": {
     "loginSubtitle": "Inicia sesión para publicar y gestionar tus propiedades exclusivas."
+  },
+  "buyPage": {
+    "title": "Encuentra el hogar de tus sueños entre nuestra selección exclusiva de propiedades en venta.",
+    "available": "disponibles"
+  },
+  "rentPage": {
+    "title": "Explora nuestra colección de residencias exclusivas disponibles para alquiler.",
+    "available": "disponibles"
+  },
+  "savedPage": {
+    "title": "Tus favoritos en un solo lugar: una selección curada de las propiedades que capturaron tu atención.",
+    "saved": "guardadas",
+    "noProperties": "No hay propiedades guardadas aún",
+    "noPropertiesSubtitle": "Haz clic en el icono del corazón en cualquier propiedad para guardarla aquí."
   }
 }

@@ -27,8 +27,7 @@ export default async function RentPage({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-28">
         <div className="mb-24 text-center">
           <p className="mt-12 text-2xl md:text-3xl font-light text-nordic-dark/80 tracking-wide leading-relaxed max-w-3xl mx-auto italic">
-            "Explorá nuestra colección de residencias exclusivas disponibles
-            para alquiler."
+            "{dict.rentPage.title}"
           </p>
           <div className="h-px w-24 bg-nordic-dark/10 mx-auto mt-12" />
         </div>
@@ -39,12 +38,12 @@ export default async function RentPage({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-mosque opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-mosque"></span>
             </span>
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-center gap-2">
               <span className="text-3xl font-black text-mosque leading-none">
                 {count}
               </span>
               <span className="text-xs font-bold text-nordic-dark/60 uppercase tracking-[0.2em] leading-none">
-                {dict.home.properties} disponibles
+                {dict.home.properties} {dict.rentPage.available}
               </span>
             </div>
           </div>

@@ -17,8 +17,6 @@
     "properties": "properties",
     "matching": "matching",
     "clearAll": "Clear all",
-    "featuredTitle": "Featured Collections",
-    "featuredSubtitle": "Curated properties for the discerning eye.",
     "viewAll": "View all",
     "searchResults": "Search Results",
     "newMarketTitle": "New in Market",
@@ -117,5 +115,19 @@
   },
   "auth": {
     "loginSubtitle": "Sign in to publish and manage your exclusive properties."
+  },
+  "buyPage": {
+    "title": "Find your dream home among our exclusive selection of properties for sale.",
+    "available": "available"
+  },
+  "rentPage": {
+    "title": "Explore our collection of exclusive residences available for rent.",
+    "available": "available"
+  },
+  "savedPage": {
+    "title": "Your favorites in one place: a curated selection of properties that captured your attention.",
+    "saved": "saved",
+    "noProperties": "No saved properties yet",
+    "noPropertiesSubtitle": "Click the heart icon on any property to save it here."
   }
 }

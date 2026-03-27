@@ -50,23 +50,6 @@ export interface PaginatedProperties {
   totalPages: number
 }
 
-export async function getFeaturedProperties(): Promise<Property[]> {
-  const { data, error } = await supabase
-    .from('properties')
-    .select('*')
-    .eq('is_featured', true)
-    .eq('is_active', true)
-    .order('created_at', { ascending: true })
-    .order('id', { ascending: true })
-
-  if (error) {
-    console.error('Error fetching featured properties:', error)
-    return []
-  }
-
-  return data ?? []
-}
-
 export async function getFavoriteProperties(): Promise<Property[]> {
   const { data, error } = await supabase
     .from('properties')
