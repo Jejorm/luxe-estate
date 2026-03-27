@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Property, PropertyType, PropertyTagType } from '@/lib/properties'
+import { DynamicPropertyMap } from '@/components/DynamicPropertyMap'
 
 interface PropertyFormProps {
   initialData?: Property | null
@@ -499,23 +500,33 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                     />
                   </div>
                 </div>
-                <div className="relative h-48 w-full rounded-lg overflow-hidden bg-gray-100 border border-gray-200 group">
-                  <Image
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS55FY7gfArnlTpNsdabJk9nBO5uQJgOwIsl8beO34JRZ9dMmjLoIkTuTUO72Y9L5tUmQqTReQWebUWadAWwLusGmRQiIict5sqY--yRaOxuYpTzfR4vv4RKh1ex6oxY64e0kbSeMudNO6pv-gG0WzVWs-pDfvQm5IoTQ1mT-tAV49LDkXAHZl317M1-D7eZw3N8o2ExKWTgg6oMAXOFVnkApIqnb7TZHekwSw8pWQxpJV2EKI8EQKQbQXJaSbjN8gB1n8b-ueWj8"
-                    alt="Map view of city streets"
-                    width={400}
-                    height={200}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="bg-white/90 text-nordic-dark px-3 py-1.5 rounded shadow-sm backdrop-blur-sm text-xs font-bold flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm text-mosque">
-                        map
-                      </span>{' '}
-                      Preview
-                    </span>
+                {lat && lng && !Number.isNaN(Number(lat)) && !Number.isNaN(Number(lng)) ? (
+                  <div className="w-full mt-2">
+                    <DynamicPropertyMap
+                      lat={Number(lat)}
+                      lng={Number(lng)}
+                      address={location || 'Location Preview'}
+                    />
                   </div>
-                </div>
+                ) : (
+                  <div className="relative h-48 w-full rounded-lg overflow-hidden bg-gray-100 border border-gray-200 group">
+                    <Image
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS55FY7gfArnlTpNsdabJk9nBO5uQJgOwIsl8beO34JRZ9dMmjLoIkTuTUO72Y9L5tUmQqTReQWebUWadAWwLusGmRQiIict5sqY--yRaOxuYpTzfR4vv4RKh1ex6oxY64e0kbSeMudNO6pv-gG0WzVWs-pDfvQm5IoTQ1mT-tAV49LDkXAHZl317M1-D7eZw3N8o2ExKWTgg6oMAXOFVnkApIqnb7TZHekwSw8pWQxpJV2EKI8EQKQbQXJaSbjN8gB1n8b-ueWj8"
+                      alt="Map view of city streets"
+                      width={400}
+                      height={200}
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="bg-white/90 text-nordic-dark px-3 py-1.5 rounded shadow-sm backdrop-blur-sm text-xs font-bold flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm text-mosque">
+                          map
+                        </span>{' '}
+                        Preview
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
