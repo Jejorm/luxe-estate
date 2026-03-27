@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { FavoriteButton } from './FavoriteButton'
 import type { Property } from '../lib/properties'
 
 interface Props {
@@ -28,12 +29,11 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
             {property.tag}
           </div>
         )}
-        <button
-          type="button"
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all cursor-pointer z-10"
-        >
-          <span className="material-icons text-xl leading-none">favorite_border</span>
-        </button>
+        <FavoriteButton
+          propertyId={property.id}
+          initialIsFavorite={property.is_favorite}
+          className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white"
+        />
         <div className="absolute bottom-0 inset-x-0 h-1/2 bg-linear-to-t from-black/60 to-transparent opacity-60"></div>
       </div>
       <div className="p-6 relative">

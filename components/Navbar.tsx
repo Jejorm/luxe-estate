@@ -22,7 +22,7 @@ export const Navbar = async () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link href="/">
-            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+            <div className="shrink-0 flex items-center gap-2 cursor-pointer">
               <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center">
                 <span className="material-icons text-white text-lg">
                   apartment
@@ -52,12 +52,12 @@ export const Navbar = async () => {
             >
               {dict.nav.sell}
             </a>
-            <a
+            <Link
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="/"
+              href="/saved"
             >
               {dict.nav.savedHomes}
-            </a>
+            </Link>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-6">
             <LanguageSelector currentLocale={locale} />

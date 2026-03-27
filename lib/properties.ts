@@ -29,6 +29,7 @@ export interface Property {
   lng: number
   is_featured: boolean
   is_active: boolean
+  is_favorite?: boolean
   property_type: PropertyType | null
   description?: string | null
   created_at: string
@@ -58,9 +59,27 @@ export async function getFeaturedProperties(): Promise<Property[]> {
     .eq('is_featured', true)
     .eq('is_active', true)
     .order('created_at', { ascending: true })
+    .order('id', { ascending: true })
 
   if (error) {
     console.error('Error fetching featured properties:', error)
+    return []
+  }
+
+  return data ?? []
+}
+
+export async function getFavoriteProperties(): Promise<Property[]> {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('is_favorite', true)
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+    .order('id', { ascending: true })
+
+  if (error) {
+    console.error('Error fetching favorite properties:', error)
     return []
   }
 
@@ -81,6 +100,7 @@ export async function getNewMarketProperties(
     .eq('is_featured', false)
     .eq('is_active', true)
     .order('created_at', { ascending: true })
+    .order('id', { ascending: true })
 
   // Text search across title and location
   if (filters.search?.trim()) {
