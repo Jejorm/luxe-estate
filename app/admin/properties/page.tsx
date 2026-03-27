@@ -33,13 +33,13 @@ export default async function AdminPropertiesPage({ searchParams }: PageProps) {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              type="button"
+            <Link
+              href="/admin/properties/new"
               className="bg-mosque hover:bg-mosque-dark text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-sm transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-sm">add</span> Add
               Property
-            </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -145,15 +145,15 @@ export default async function AdminPropertiesPage({ searchParams }: PageProps) {
 
               {/* Actions Column */}
               <div className="flex items-center justify-end gap-2 col-span-2">
-                <button
-                  type="button"
+                <Link
+                  href={`/admin/properties/${property.id}`}
                   className="p-2 hover:bg-nordic-dark/5 rounded-lg text-nordic-dark/40 hover:text-mosque transition-colors"
                   title="Edit"
                 >
                   <span className="material-symbols-outlined text-xl">
                     edit
                   </span>
-                </button>
+                </Link>
                 <button
                   type="button"
                   className="p-2 hover:bg-rose-50 rounded-lg text-nordic-dark/40 hover:text-rose-600 transition-colors"
