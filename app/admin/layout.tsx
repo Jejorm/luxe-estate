@@ -1,6 +1,6 @@
+import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { AdminNavbar } from '@/components/AdminNavbar'
-import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function AdminLayout({
