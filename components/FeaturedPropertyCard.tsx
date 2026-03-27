@@ -13,9 +13,12 @@ export const FeaturedPropertyCard = ({ property }: Props) => {
     >
       <div className="aspect-[4/3] w-full overflow-hidden relative">
         <img
-          alt={property.title}
+          alt={property.title || 'Property'}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          src={property.images[0]}
+          src={
+            property.images?.[0] ||
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80'
+          }
         />
         {property.tag && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark">

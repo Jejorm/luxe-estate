@@ -37,6 +37,9 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
   const [isFeatured, setIsFeatured] = useState<boolean>(
     initialData?.is_featured || false,
   )
+  const [isActive, setIsActive] = useState<boolean>(
+    initialData?.is_active ?? true,
+  )
 
   const [location, setLocation] = useState(initialData?.location || '')
   const [lat, setLat] = useState(initialData?.lat?.toString() || '')
@@ -108,6 +111,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
       tag,
       tag_type: tagType || null,
       is_featured: isFeatured,
+      is_active: isActive,
       location,
       lat: lat ? Number(lat) : 0,
       lng: lng ? Number(lng) : 0,
@@ -725,6 +729,48 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
                     </label>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Visibility */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="px-6 py-4 border-b border-hint-green/30 flex items-center gap-3 bg-linear-to-r from-hint-green/10 to-transparent">
+                <div className="w-8 h-8 rounded-full bg-hint-green flex items-center justify-center text-nordic-dark">
+                  <span className="material-symbols-outlined text-lg">visibility</span>
+                </div>
+                <h2 className="text-lg font-bold text-nordic-dark">Visibility</h2>
+              </div>
+              <div className="p-6">
+                <p className="text-sm text-gray-500 mb-4">
+                  Hidden properties won&apos;t appear on the public site or search filters.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsActive(!isActive)}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all duration-200 ${
+                    isActive
+                      ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                      : 'border-gray-200 bg-gray-50 text-gray-500'
+                  }`}
+                >
+                  <span className="flex items-center gap-2 font-medium text-sm">
+                    <span className="material-symbols-outlined text-lg">
+                      {isActive ? 'visibility' : 'visibility_off'}
+                    </span>
+                    {isActive ? 'Published — Visible to users' : 'Hidden — Not visible publicly'}
+                  </span>
+                  <span
+                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                      isActive ? 'bg-emerald-500' : 'bg-gray-300'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
+                        isActive ? 'translate-x-4' : 'translate-x-1'
+                      }`}
+                    />
+                  </span>
+                </button>
               </div>
             </div>
           </div>

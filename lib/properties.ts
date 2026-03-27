@@ -28,6 +28,7 @@ export interface Property {
   lat: number
   lng: number
   is_featured: boolean
+  is_active: boolean
   property_type: PropertyType | null
   created_at: string
 }
@@ -54,6 +55,7 @@ export async function getFeaturedProperties(): Promise<Property[]> {
     .from('properties')
     .select('*')
     .eq('is_featured', true)
+    .eq('is_active', true)
     .order('created_at', { ascending: true })
 
   if (error) {
@@ -76,10 +78,11 @@ export async function getNewMarketProperties(
     .from('properties')
     .select('*', { count: 'exact' })
     .eq('is_featured', false)
+    .eq('is_active', true)
     .order('created_at', { ascending: true })
 
   // Text search across title and location
-  if (filters.search && filters.search.trim()) {
+  if (filters.search?.trim()) {
     query = query.or(
       `title.ilike.%${filters.search.trim()}%,location.ilike.%${filters.search.trim()}%`,
     )
@@ -146,6 +149,7 @@ export async function getPropertyBySlug(
     .from('properties')
     .select('*')
     .eq('slug', slug)
+    .eq('is_active', true)
     .single()
 
   if (error) {
@@ -159,7 +163,10 @@ export async function getPropertyBySlug(
 }
 
 export async function getAllPropertySlugs(): Promise<{ slug: string }[]> {
-  const { data, error } = await supabase.from('properties').select('slug')
+  const { data, error } = await supabase
+    .from('properties')
+    .select('slug')
+    .eq('is_active', true)
 
   if (error) {
     console.error('Error fetching property slugs:', error)

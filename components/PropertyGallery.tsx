@@ -10,7 +10,9 @@ interface PropertyGalleryProps {
 export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
   const [mainImageIndex, setMainImageIndex] = useState(0)
 
-  if (!images || images.length === 0) return null
+  const displayImages = images && images.length > 0
+    ? images
+    : ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80']
 
   return (
     <div className="col-span-1 lg:col-span-8 space-y-4">
@@ -19,7 +21,7 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
         <img
           alt={title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          src={images[mainImageIndex]}
+          src={displayImages[mainImageIndex]}
         />
         <div className="absolute top-4 left-4 flex gap-2">
           <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
@@ -36,9 +38,9 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
       </div>
 
       {/* Thumbnails */}
-      {images.length > 1 && (
+      {displayImages.length > 1 && (
         <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 snap-x">
-          {images.map((img, idx) => (
+          {displayImages.map((img, idx) => (
             <div
               key={idx}
               className={`flex-none w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-opacity ${

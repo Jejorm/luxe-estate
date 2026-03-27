@@ -19,9 +19,12 @@ export const PropertyCard = ({ property, className = '' }: Props) => {
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
-          alt={property.title}
+          alt={property.title || 'Property'}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          src={property.images[0]}
+          src={
+            property.images?.[0] ||
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80'
+          }
         />
         <button className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
           <span className="material-icons text-lg">favorite_border</span>

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { fetchAdminProperties } from '../actions'
+import { DeactivateButton } from './components/DeactivateButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -120,7 +121,7 @@ export default async function AdminPropertiesPage({ searchParams }: PageProps) {
               </div>
 
               {/* Status Column */}
-              <div className="col-span-2 flex justify-center">
+              <div className="col-span-2 flex flex-col items-center gap-1.5">
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 ${
                     property.tag?.toLowerCase() === 'pending'
@@ -141,6 +142,15 @@ export default async function AdminPropertiesPage({ searchParams }: PageProps) {
                   />
                   {property.tag || 'Active'}
                 </span>
+                <span
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide ${
+                    property.is_active
+                      ? 'bg-hint-green/40 text-emerald-700'
+                      : 'bg-gray-100 text-gray-400'
+                  }`}
+                >
+                  {property.is_active ? 'Visible' : 'Hidden'}
+                </span>
               </div>
 
               {/* Actions Column */}
@@ -154,15 +164,10 @@ export default async function AdminPropertiesPage({ searchParams }: PageProps) {
                     edit
                   </span>
                 </Link>
-                <button
-                  type="button"
-                  className="p-2 hover:bg-rose-50 rounded-lg text-nordic-dark/40 hover:text-rose-600 transition-colors"
-                  title="Delete"
-                >
-                  <span className="material-symbols-outlined text-xl">
-                    delete
-                  </span>
-                </button>
+                <DeactivateButton
+                  id={property.id}
+                  isActive={property.is_active}
+                />
               </div>
             </div>
           ))

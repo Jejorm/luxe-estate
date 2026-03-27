@@ -68,3 +68,24 @@ export async function fetchAdminProperties(page = 1, limit = 10) {
     total: count || 0,
   }
 }
+
+export async function togglePropertyActive(
+  id: string,
+  currentActive: boolean,
+) {
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from('properties')
+    .update({ is_active: !currentActive })
+    .eq('id', id)
+
+  if (error) {
+    console.error('Error toggling property active state:', error)
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath('/admin/properties')
+  revalidatePath('/')
+  return { success: true }
+}
