@@ -40,7 +40,9 @@ export default async function Home({ searchParams }: HomeProps) {
   }
 
   const hasActiveFilters = Object.values(filters).some((v) => v !== undefined)
-  const hasOtherFilters = Object.entries(filters).some(([k, v]) => k !== 'type' && v !== undefined)
+  const hasOtherFilters = Object.entries(filters).some(
+    ([k, v]) => k !== 'type' && v !== undefined,
+  )
 
   const [featuredProperties, { data: newMarketProperties, totalPages, count }] =
     await Promise.all([

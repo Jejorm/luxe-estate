@@ -1,6 +1,8 @@
 import { signInWithGitHub, signInWithGoogle } from '@/app/actions/auth'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const dict = await getDictionary()
   return (
     <div className="font-sans min-h-screen flex items-center justify-center p-4 antialiased relative overflow-hidden bg-[#eff6f5] text-[#1a2d2a]">
       {/* Background radial gradient for a premium feel similar to the image */}
@@ -18,7 +20,7 @@ export default function LoginPage() {
             Welcome to LuxeEstate
           </h1>
           <p className="text-[#6b7c7a] text-lg font-medium">
-            Unlock exclusive properties worldwide.
+            {dict.auth.loginSubtitle}
           </p>
         </div>
 
@@ -78,16 +80,6 @@ export default function LoginPage() {
               </button>
             </form>
           </div>
-
-          <p className="mt-10 text-center text-[0.95rem] text-[#6b7c7a] font-medium">
-            {"Don't have an account?"}{' '}
-            <a
-              className="font-bold text-[#006655] hover:text-[#004d40] transition-colors"
-              href="/"
-            >
-              Sign up
-            </a>
-          </p>
         </div>
 
         {/* Footer links */}

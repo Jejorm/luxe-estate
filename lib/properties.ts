@@ -1,6 +1,5 @@
 import { supabase } from './supabase'
 
-
 export type PropertyType =
   | 'house'
   | 'apartment'

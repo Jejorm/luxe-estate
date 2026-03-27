@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
-import { getDictionary } from '@/lib/i18n/getDictionary'
 import { Navbar } from '@/components/Navbar'
 import { Pagination } from '@/components/Pagination'
 import { PropertyCard } from '@/components/PropertyCard'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 import { getNewMarketProperties } from '@/lib/properties'
 
 export default async function BuyPage({
@@ -18,7 +18,7 @@ export default async function BuyPage({
   const { data: properties, totalPages } = await getNewMarketProperties(
     currentPage,
     12,
-    { type: 'buy' }
+    { type: 'buy' },
   )
 
   return (

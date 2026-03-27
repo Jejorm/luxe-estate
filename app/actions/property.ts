@@ -3,7 +3,10 @@
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 
-export async function toggleFavorite(propertyId: string, currentState: boolean) {
+export async function toggleFavorite(
+  propertyId: string,
+  currentState: boolean,
+) {
   const supabase = await createClient()
 
   const { error } = await supabase
@@ -19,6 +22,6 @@ export async function toggleFavorite(propertyId: string, currentState: boolean) 
   // Revalidate both the root page and the saved properties page
   revalidatePath('/')
   revalidatePath('/saved')
-  
+
   return { success: true, is_favorite: !currentState }
 }

@@ -113,5 +113,8 @@
     "withDown": "con 20% de entrada",
     "calculateMortgage": "Calcular Hipoteca",
     "allRightsReserved": "Todos los derechos reservados."
+  },
+  "auth": {
+    "loginSubtitle": "Inicia sesión para publicar y gestionar tus propiedades exclusivas."
   }
 }

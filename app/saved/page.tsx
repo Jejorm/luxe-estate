@@ -1,6 +1,6 @@
-import { getDictionary } from '@/lib/i18n/getDictionary'
 import { Navbar } from '@/components/Navbar'
 import { PropertyCard } from '@/components/PropertyCard'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 import { getFavoriteProperties } from '@/lib/properties'
 
 export default async function SavedPropertiesPage() {

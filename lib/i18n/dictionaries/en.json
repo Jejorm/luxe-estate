@@ -113,5 +113,8 @@
     "withDown": "with 20% down",
     "calculateMortgage": "Calculate Mortgage",
     "allRightsReserved": "All rights reserved."
+  },
+  "auth": {
+    "loginSubtitle": "Sign in to publish and manage your exclusive properties."
   }
 }

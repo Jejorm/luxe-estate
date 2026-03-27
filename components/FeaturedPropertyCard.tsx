@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { FavoriteButton } from './FavoriteButton'
 import type { Property } from '../lib/properties'
+import { FavoriteButton } from './FavoriteButton'
 
 interface Props {
   property: Property

@@ -113,5 +113,8 @@
     "withDown": "avec 20% d'apport",
     "calculateMortgage": "Calculer l'hypothèque",
     "allRightsReserved": "Tous droits réservés."
+  },
+  "auth": {
+    "loginSubtitle": "Connectez-vous pour publier et gérer vos propriétés exclusives."
   }
 }
