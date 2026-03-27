@@ -17,9 +17,9 @@ export const Navbar = async () => {
   let userRole = null
   if (user) {
     const { data } = await supabase
-      .from('users')
+      .from('user_roles')
       .select('role')
-      .eq('id', user.id)
+      .eq('user_id', user.id)
       .single()
     userRole = data?.role
   }
@@ -58,7 +58,7 @@ export const Navbar = async () => {
             </Link>
             <Link
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href={userRole === 'admin' ? '/admin' : '/login'}
+              href={user ? (userRole === 'admin' ? '/admin' : '/') : '/login'}
             >
               {dict.nav.sell}
             </Link>
