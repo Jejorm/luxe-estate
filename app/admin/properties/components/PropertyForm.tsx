@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { DynamicPropertyMap } from '@/components/DynamicPropertyMap'
-import type { Property, PropertyTagType, PropertyType } from '@/lib/properties'
+import type { Property, PropertyType } from '@/lib/properties'
 import { createClient } from '@/lib/supabase/client'
 
 interface PropertyFormProps {
@@ -28,8 +28,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
     initialData?.property_type || '',
   )
   const [slug] = useState(initialData?.slug || '')
-  const [tag] = useState(initialData?.tag || '')
-  const [tagType] = useState<PropertyTagType | ''>(initialData?.tag_type || '')
+
   const [isFeatured] = useState<boolean>(initialData?.is_featured || false)
   const [isActive, setIsActive] = useState<boolean>(
     initialData?.is_active ?? true,
@@ -102,8 +101,7 @@ export default function PropertyForm({ initialData }: PropertyFormProps) {
           .toLowerCase()
           .replace(/\s+/g, '-')
           .replace(/[^a-z0-9-]/g, ''),
-      tag,
-      tag_type: tagType || null,
+      tag: isRent ? 'rent' : 'buy',
       is_featured: isFeatured,
       is_active: isActive,
       location,

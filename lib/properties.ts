@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-export type PropertyTagType = 'sale' | 'rent' | 'exclusive' | 'new'
+
 export type PropertyType =
   | 'house'
   | 'apartment'
@@ -21,8 +21,7 @@ export interface Property {
   beds: number
   baths: number
   area: string
-  tag: string
-  tag_type: PropertyTagType | null
+  tag: 'buy' | 'rent'
   images: string[]
   slug: string
   lat: number
@@ -109,8 +108,12 @@ export async function getNewMarketProperties(
     )
   }
 
+  // Primary property tags (buy/rent filtering)
+  if (filters.type === 'buy' || filters.type === 'rent') {
+    query = query.eq('tag', filters.type)
+  }
   // Property type filter (maps pill labels to DB values)
-  if (filters.type && filters.type !== 'all') {
+  else if (filters.type && filters.type !== 'all') {
     // Support compound labels like "villa" → matches "villa", "estate" → broad match
     const typeMap: Record<string, string[]> = {
       house: ['house'],

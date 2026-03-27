@@ -9,9 +9,8 @@ interface Props {
 }
 
 export const PropertyCard = ({ property, className = '' }: Props) => {
-  // Dynamic tag styling depending on tag_type
-  const isSale =
-    property.tag_type === 'sale' || property.tag_type === 'exclusive'
+  // Dynamic tag styling depending on tag
+  const isSale = property.tag === 'buy'
   const tagBgClass = isSale ? 'bg-nordic-dark/90' : 'bg-mosque/90'
 
   return (

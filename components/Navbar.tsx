@@ -34,24 +34,24 @@ export const Navbar = async () => {
             </div>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <a
-              className="text-mosque font-medium text-sm border-b-2 border-mosque px-1 py-1"
-              href="/"
+            <Link
+              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
+              href="/buy"
             >
               {dict.nav.buy}
-            </a>
-            <a
+            </Link>
+            <Link
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="/"
+              href="/rent"
             >
               {dict.nav.rent}
-            </a>
-            <a
+            </Link>
+            <Link
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="/"
+              href="/sell"
             >
               {dict.nav.sell}
-            </a>
+            </Link>
             <Link
               className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
               href="/saved"

@@ -27,7 +27,7 @@ export async function generateMetadata({
 
   return {
     title: `${property.title} | LuxeEstate`,
-    description: `Discover this amazing property for ${property.tag_type} in ${property.location}. ${property.beds} beds, ${property.baths} baths.`,
+    description: `Discover this amazing property for ${property.tag} in ${property.location}. ${property.beds} beds, ${property.baths} baths.`,
   }
 }
 

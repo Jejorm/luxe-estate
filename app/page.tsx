@@ -40,6 +40,7 @@ export default async function Home({ searchParams }: HomeProps) {
   }
 
   const hasActiveFilters = Object.values(filters).some((v) => v !== undefined)
+  const hasOtherFilters = Object.entries(filters).some(([k, v]) => k !== 'type' && v !== undefined)
 
   const [featuredProperties, { data: newMarketProperties, totalPages, count }] =
     await Promise.all([
@@ -177,12 +178,12 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-light text-nordic-dark">
-                {hasActiveFilters
+                {hasOtherFilters
                   ? dict.home.searchResults
                   : dict.home.newMarketTitle}
               </h2>
               <p className="text-nordic-muted mt-1 text-sm">
-                {hasActiveFilters
+                {hasOtherFilters
                   ? count === 1
                     ? dict.home.foundProperty
                     : dict.home.foundProperties.replace(
@@ -192,26 +193,26 @@ export default async function Home({ searchParams }: HomeProps) {
                   : dict.home.newMarketSubtitle}
               </p>
             </div>
-            {!hasActiveFilters && (
+            {!hasOtherFilters && (
               <div className="hidden md:flex bg-white p-1 rounded-lg">
-                <button
-                  type="button"
-                  className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm"
+                <Link
+                  href="/"
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium ${!filters.type ? 'bg-nordic-dark text-white shadow-sm' : 'text-nordic-muted hover:text-nordic-dark'}`}
                 >
                   {dict.home.allBtn}
-                </button>
-                <button
-                  type="button"
-                  className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark"
+                </Link>
+                <Link
+                  href="/?type=buy"
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium ${filters.type === 'buy' ? 'bg-nordic-dark text-white shadow-sm' : 'text-nordic-muted hover:text-nordic-dark'}`}
                 >
                   {dict.home.buyBtn}
-                </button>
-                <button
-                  type="button"
-                  className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark"
+                </Link>
+                <Link
+                  href="/?type=rent"
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium ${filters.type === 'rent' ? 'bg-nordic-dark text-white shadow-sm' : 'text-nordic-muted hover:text-nordic-dark'}`}
                 >
                   {dict.home.rentBtn}
-                </button>
+                </Link>
               </div>
             )}
           </div>
@@ -238,9 +239,9 @@ export default async function Home({ searchParams }: HomeProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {newMarketProperties.map((property, index) => {
                 let extraClass = ''
-                if (!hasActiveFilters && index === 4)
+                if (!hasOtherFilters && index === 4)
                   extraClass = 'hidden xl:flex'
-                if (!hasActiveFilters && index === 5)
+                if (!hasOtherFilters && index === 5)
                   extraClass = 'hidden lg:flex'
                 return (
                   <PropertyCard
