@@ -90,7 +90,7 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="text-xs font-semibold text-mosque hover:text-mosque/80 transition-colors"
+                  className="cursor-pointer text-xs font-semibold text-mosque hover:text-mosque/80 transition-colors"
                 >
                   Sign Out
                 </button>

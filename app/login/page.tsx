@@ -31,7 +31,7 @@ export default async function LoginPage() {
             <form action={signInWithGoogle}>
               <button
                 type="submit"
-                className="w-full h-14 flex items-center justify-center gap-3 bg-white border border-[#f0f0f0] rounded-xl text-[#1a2d2a] font-semibold transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
+                className="cursor-pointer w-full h-14 flex items-center justify-center gap-3 bg-white border border-[#f0f0f0] rounded-xl text-[#1a2d2a] font-semibold transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
               >
                 <svg
                   className="w-5 h-5"
@@ -65,7 +65,7 @@ export default async function LoginPage() {
             <form action={signInWithGitHub}>
               <button
                 type="submit"
-                className="w-full h-14 flex items-center justify-center gap-3 bg-white border border-[#f0f0f0] rounded-xl text-[#1a2d2a] font-semibold transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
+                className="cursor-pointer w-full h-14 flex items-center justify-center gap-3 bg-white border border-[#f0f0f0] rounded-xl text-[#1a2d2a] font-semibold transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
               >
                 <svg
                   className="w-6 h-6 fill-current text-[#1a2d2a]"
