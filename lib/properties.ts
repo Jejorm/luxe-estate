@@ -67,6 +67,24 @@ export async function getFavoriteProperties(): Promise<Property[]> {
   return data ?? []
 }
 
+export async function getPropertiesByIds(ids: string[]): Promise<Property[]> {
+  if (ids.length === 0) return []
+
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .in('id', ids)
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching properties by IDs:', error)
+    return []
+  }
+
+  return data ?? []
+}
+
 export async function getNewMarketProperties(
   page = 1,
   pageSize = 8,
