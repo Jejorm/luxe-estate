@@ -6,7 +6,8 @@
     "savedHomes": "Saved Properties",
     "manageProperties": "Admin Panel",
     "signIn": "Sign in",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "backToHome": "Back to Home"
   },
   "home": {
     "heroTitle": "Find your",

@@ -6,7 +6,8 @@
     "savedHomes": "Propiedades Guardadas",
     "manageProperties": "Panel Admin",
     "signIn": "Iniciar sesión",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "backToHome": "Volver a Inicio"
   },
   "home": {
     "heroTitle": "Encuentra tu",

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
 import type { Dictionary } from '@/lib/i18n/getDictionary'
+import { signOut } from '@/app/actions/auth'
 
 interface MobileMenuProps {
   dict: Dictionary
@@ -158,6 +159,18 @@ export function MobileMenu({ dict, userRole, user }: MobileMenuProps) {
 
           {/* Footer / Auth */}
           <div className="mt-auto pt-8 border-t border-nordic-dark/10">
+            {pathname !== '/' && (
+              <div className="space-y-3 mb-3">
+                <Link
+                  href="/"
+                  className="flex items-center justify-center gap-3 w-full py-4 bg-nordic-dark text-white rounded-2xl font-bold shadow-xl shadow-nordic-dark/20 transition-transform active:scale-[0.98]"
+                >
+                  <span className="material-icons text-xl">home</span>
+                  {dict.nav.backToHome}
+                </Link>
+              </div>
+            )}
+
             {!user ? (
               <Link
                 href="/login"
@@ -168,24 +181,28 @@ export function MobileMenu({ dict, userRole, user }: MobileMenuProps) {
               </Link>
             ) : (
               <div className="space-y-3">
-                <p className="text-xs font-medium text-nordic-dark/40 px-2 text-center">
+                <button
+                  type="button"
+                  onClick={() => signOut()}
+                  className="flex items-center justify-center gap-2 w-full py-3.5 border-2 border-error  text-error rounded-2xl font-bold hover:border-error/20 transition-all active:scale-[0.98] cursor-pointer"
+                >
+                  <span className="material-symbols-rounded text-xl">
+                    logout
+                  </span>
+                  {dict.nav.signOut}
+                </button>
+                <p className="mt-8 text-xs font-medium text-nordic-dark/40 px-2 text-center">
                   Signed in as{' '}
                   <span className="text-nordic-dark font-bold">
                     {user.email}
                   </span>
                 </p>
-                <Link
-                  href="/login"
-                  className="flex items-center justify-center gap-2 w-full py-3.5 border-2 border-nordic-dark/10 text-nordic-dark rounded-2xl font-bold hover:border-nordic-dark/20 transition-all active:scale-[0.98]"
-                >
-                  My Profile
-                </Link>
               </div>
             )}
 
-            <p className="text-center text-[10px] text-nordic-dark/20 mt-8 uppercase tracking-[0.2em] font-black">
+            {/* <p className="text-center text-[10px] text-nordic-dark/20 mt-8 uppercase tracking-[0.2em] font-black">
               LuxeEstate Premium © 2026
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
