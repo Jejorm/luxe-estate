@@ -101,9 +101,9 @@ export function MobileMenu({ dict, userRole, user }: MobileMenuProps) {
 
           {/* Navigation */}
           <nav className="flex flex-col space-y-3 flex-1">
-            <p className="text-[10px] uppercase tracking-widest font-bold text-nordic-dark/30 mb-1">
+            {/* <p className="text-[10px] uppercase tracking-widest font-bold text-nordic-dark/30 mb-1">
               Navigation
-            </p>
+            </p> */}
 
             {userRole === 'admin' && (
               <Link
@@ -151,9 +151,7 @@ export function MobileMenu({ dict, userRole, user }: MobileMenuProps) {
                   : 'bg-nordic-dark/5 text-nordic-dark hover:bg-nordic-dark/10'
               }`}
             >
-              <span className="material-symbols-rounded text-xl">
-                favorite
-              </span>
+              <span className="material-symbols-rounded text-xl">favorite</span>
               {dict.nav.savedHomes}
             </Link>
           </nav>
