@@ -5,6 +5,7 @@ import { getCurrentLocale, getDictionary } from '@/lib/i18n/getDictionary'
 import { createClient } from '@/lib/supabase/server'
 import { LanguageSelector } from './LanguageSelector'
 import { NavLink } from './NavLink'
+import { MobileMenu } from './MobileMenu'
 
 export const Navbar = async () => {
   const dict = await getDictionary()
@@ -28,24 +29,25 @@ export const Navbar = async () => {
   const avatarUrl = user?.user_metadata?.avatar_url as string | undefined
   const fullName = user?.user_metadata?.full_name as string | undefined
 
-  const sellHref = user ? (userRole === 'admin' ? '/admin' : '/') : '/login'
-
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95 backdrop-blur-md border-b border-nordic-dark/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <Link href="/">
-            <div className="shrink-0 flex items-center gap-2 cursor-pointer">
-              <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center">
-                <span className="material-icons text-white text-lg">
-                  apartment
+          <div className="flex items-center gap-2">
+            <MobileMenu dict={dict} userRole={userRole} user={user} />
+            <Link href="/">
+              <div className="shrink-0 flex items-center gap-2 cursor-pointer">
+                <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center">
+                  <span className="material-icons text-white text-lg">
+                    apartment
+                  </span>
+                </div>
+                <span className="text-xl font-semibold tracking-tight text-nordic-dark">
+                  LuxeEstate
                 </span>
               </div>
-              <span className="text-xl font-semibold tracking-tight text-nordic-dark">
-                LuxeEstate
-              </span>
-            </div>
-          </Link>
+            </Link>
+          </div>
           <div className="hidden md:flex items-center space-x-2">
             {userRole === 'admin' && (
               <NavLink
@@ -101,7 +103,7 @@ export const Navbar = async () => {
                     </span>
                   )}
                 </div>
-                <form action={signOut}>
+                <form action={signOut} className="hidden sm:block">
                   <button
                     type="submit"
                     className="cursor-pointer text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
@@ -113,7 +115,7 @@ export const Navbar = async () => {
             ) : (
               <Link
                 href="/login"
-                className="flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2 text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
+                className="hidden sm:flex items-center gap-2 sm:pl-2 sm:border-l border-nordic-dark/10 sm:ml-2 text-sm font-semibold text-mosque hover:text-mosque/80 transition-colors"
               >
                 {dict.nav.signIn}
               </Link>
@@ -121,7 +123,6 @@ export const Navbar = async () => {
           </div>
         </div>
       </div>
-      {/* Mobile Nav could be added here later */}
     </nav>
   )
 }

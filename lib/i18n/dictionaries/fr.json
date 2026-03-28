@@ -145,7 +145,37 @@
   "savedPage": {
     "title": "Vos favoris en un seul endroit : une sélection rigoureuse des propriétés qui ont attiré votre attention.",
     "saved": "sauvegardées",
-    "noProperties": "Aucune propriété sauvegardée pour le moment",
+    "noProperties": "Aucune propriété enregistrée pour le moment",
     "noPropertiesSubtitle": "Cliquez sur l'icône du cœur sur n'importe quelle propriété pour l'enregistrer ici."
-  }
-}
+    },
+    "admin": {
+    "portalTitle": "Portail d'Administration",
+    "portalSubtitle": "Veuillez sélectionner un tableau de bord pour gérer les utilisateurs ou les propriétés.",
+    "manageUsers": "Gérer les Utilisateurs",
+    "manageUsersDesc": "Consultez l'annuaire des utilisateurs, attribuez des rôles et suivez les mesures de performance.",
+    "manageProperties": "Gérer les Propriétés",
+    "managePropertiesDesc": "Accédez au tableau de bord des propriétés pour voir les annonces actives, les ventes en attente et l'inventaire.",
+    "launchDashboard": "Lancer le Tableau de Bord",
+    "propertyManagement": "Gestion des Propriétés",
+    "propertyManagementDesc": "Gérez votre catalogue immobilier et vos annonces actives.",
+    "addProperty": "Ajouter une Propriété",
+    "propertyDetails": "Détails de la Propriété",
+    "price": "Prix",
+    "status": "Statut",
+    "actions": "Actions",
+    "noProperties": "Aucune propriété trouvée dans la base de données.",
+    "userDirectory": "Annuaire des Utilisateurs",
+    "userDirectoryDesc": "Gérez l'accès des utilisateurs et les rôles pour vos propriétés.",
+    "allUsers": "Tous les Utilisateurs",
+    "admins": "Administrateurs",
+    "userDetails": "Détails de l'Utilisateur",
+    "roleStatus": "Rôle et Statut",
+    "info": "Info",
+    "noUsers": "Aucun utilisateur trouvé.",
+    "showing": "Affichage de",
+    "of": "sur",
+    "listings": "annonces",
+    "users": "utilisateurs",
+    "page": "Page"
+    }
+    }

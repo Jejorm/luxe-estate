@@ -49,12 +49,12 @@ export const PropertyGallery = ({ images, title }: PropertyGalleryProps) => {
 
       {/* Thumbnails */}
       {displayImages.length > 1 && (
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 snap-x">
+        <div className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide pb-2 snap-x px-1 -mx-1">
           {displayImages.map((img, idx) => (
             <button
               key={img}
               type="button"
-              className={`relative flex-none w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-opacity ${
+              className={`relative flex-none w-32 sm:w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-opacity ${
                 mainImageIndex === idx
                   ? 'ring-2 ring-mosque ring-offset-2 ring-offset-background-light opacity-100'
                   : 'opacity-70 hover:opacity-100'

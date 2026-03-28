@@ -18,6 +18,6 @@ export async function setLanguage(locale: string) {
     secure: process.env.NODE_ENV === 'production',
   })
 
-  // Revalidate the root to apply changes immediately
-  revalidatePath('/')
+  // Revalidate the root layout to apply changes to the entire site immediately
+  revalidatePath('/', 'layout')
 }

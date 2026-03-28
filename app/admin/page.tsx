@@ -1,8 +1,11 @@
 import Link from 'next/link'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 
 export const dynamic = 'force-dynamic'
 
-export default function AdminDashboardIndex() {
+export default async function AdminDashboardIndex() {
+  const dict = await getDictionary()
+
   return (
     <div className="bg-background-light text-nordic-dark font-sans min-h-screen flex flex-col antialiased">
       {/* Header */}
@@ -10,10 +13,10 @@ export default function AdminDashboardIndex() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-nordic-dark">
-              Admin Portal
+              {dict.admin.portalTitle}
             </h1>
             <p className="text-nordic-dark/60 mt-1 text-sm">
-              Please select a dashboard to manage users or properties.
+              {dict.admin.portalSubtitle}
             </p>
           </div>
         </div>
@@ -30,14 +33,13 @@ export default function AdminDashboardIndex() {
                 </span>
               </div>
               <h2 className="text-xl font-bold text-nordic-dark mb-3 group-hover:text-mosque transition-colors">
-                Manage Users
+                {dict.admin.manageUsers}
               </h2>
               <p className="text-nordic-dark/60 text-sm leading-relaxed mb-6">
-                View the user directory, assign roles, and track agent
-                performance metrics across your organization.
+                {dict.admin.manageUsersDesc}
               </p>
               <span className="mt-auto inline-flex items-center gap-2 text-sm font-bold text-mosque">
-                Launch Dashboard
+                {dict.admin.launchDashboard}
                 <span className="material-symbols-outlined text-sm">
                   arrow_forward
                 </span>
@@ -53,14 +55,13 @@ export default function AdminDashboardIndex() {
                 </span>
               </div>
               <h2 className="text-xl font-bold text-nordic-dark mb-3 group-hover:text-mosque transition-colors">
-                Manage Properties
+                {dict.admin.manageProperties}
               </h2>
               <p className="text-nordic-dark/60 text-sm leading-relaxed mb-6">
-                Access the property dashboard to view active listings, pending
-                sales, and inventory across your real estate catalog.
+                {dict.admin.managePropertiesDesc}
               </p>
               <span className="mt-auto inline-flex items-center gap-2 text-sm font-bold text-mosque">
-                Launch Dashboard
+                {dict.admin.launchDashboard}
                 <span className="material-symbols-outlined text-sm">
                   arrow_forward
                 </span>

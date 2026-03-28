@@ -140,62 +140,62 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
             </div>
           </div>
 
-          <div className="lg:col-span-8 lg:row-start-2 -mt-8 space-y-8 z-10 relative">
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
+          <div className="lg:col-span-8 lg:row-start-2 mt-4 lg:-mt-8 space-y-8 z-10 relative">
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-mosque/5">
               <h2 className="text-lg font-semibold mb-6 text-nordic-dark">
                 Property Features
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
-                  <span className="material-icons text-mosque text-2xl mb-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+                <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-mosque/5 rounded-lg border border-mosque/10 text-center">
+                  <span className="material-icons text-mosque text-xl sm:text-2xl mb-1 sm:mb-2">
                     square_foot
                   </span>
-                  <span className="text-xl font-bold text-nordic-dark">
+                  <span className="text-lg sm:text-xl font-bold text-nordic-dark">
                     {area}
                   </span>
-                  <span className="text-xs uppercase tracking-wider text-nordic-dark/50">
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-nordic-dark/50">
                     Square Meters
                   </span>
                 </div>
-                <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
-                  <span className="material-icons text-mosque text-2xl mb-2">
+                <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-mosque/5 rounded-lg border border-mosque/10 text-center">
+                  <span className="material-icons text-mosque text-xl sm:text-2xl mb-1 sm:mb-2">
                     bed
                   </span>
-                  <span className="text-xl font-bold text-nordic-dark">
+                  <span className="text-lg sm:text-xl font-bold text-nordic-dark">
                     {beds}
                   </span>
-                  <span className="text-xs uppercase tracking-wider text-nordic-dark/50">
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-nordic-dark/50">
                     Bedrooms
                   </span>
                 </div>
-                <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
-                  <span className="material-icons text-mosque text-2xl mb-2">
+                <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-mosque/5 rounded-lg border border-mosque/10 text-center">
+                  <span className="material-icons text-mosque text-xl sm:text-2xl mb-1 sm:mb-2">
                     shower
                   </span>
-                  <span className="text-xl font-bold text-nordic-dark">
+                  <span className="text-lg sm:text-xl font-bold text-nordic-dark">
                     {baths}
                   </span>
-                  <span className="text-xs uppercase tracking-wider text-nordic-dark/50">
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-nordic-dark/50">
                     Bathrooms
                   </span>
                 </div>
-                <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
-                  <span className="material-icons text-mosque text-2xl mb-2">
+                <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-mosque/5 rounded-lg border border-mosque/10 text-center">
+                  <span className="material-icons text-mosque text-xl sm:text-2xl mb-1 sm:mb-2">
                     directions_car
                   </span>
-                  <span className="text-xl font-bold text-nordic-dark">2</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic-dark/50">
+                  <span className="text-lg sm:text-xl font-bold text-nordic-dark">2</span>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-wider text-nordic-dark/50">
                     Garage
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-mosque/5">
               <h2 className="text-lg font-semibold mb-4 text-nordic-dark">
                 About this home
               </h2>
-              <div className="prose prose-slate max-w-none text-nordic-dark/70 leading-relaxed">
+              <div className="prose prose-slate max-w-none text-nordic-dark/70 leading-relaxed text-sm sm:text-base">
                 {description ? (
                   <p className="whitespace-pre-wrap">{description}</p>
                 ) : (

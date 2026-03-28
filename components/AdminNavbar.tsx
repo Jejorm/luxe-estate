@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from '@/app/actions/auth'
+import { LanguageSelector } from './LanguageSelector'
+import type { Locale } from '@/lib/i18n/config'
 
 interface AdminNavbarProps {
   user: {
@@ -11,9 +13,10 @@ interface AdminNavbarProps {
     avatar_url?: string
     full_name?: string
   } | null
+  locale: Locale
 }
 
-export function AdminNavbar({ user }: AdminNavbarProps) {
+export function AdminNavbar({ user, locale }: AdminNavbarProps) {
   const pathname = usePathname()
 
   const links = [
@@ -68,6 +71,8 @@ export function AdminNavbar({ user }: AdminNavbarProps) {
         </div>
 
         <div className="flex items-center gap-5">
+          <LanguageSelector currentLocale={locale} />
+          
           {user && (
             <div className="flex items-center gap-3 pl-5 border-l border-nordic-dark/10">
               <div className="w-8 h-8 rounded-full bg-nordic-dark/5 flex items-center justify-center overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all shrink-0">

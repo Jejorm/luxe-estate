@@ -33,7 +33,7 @@ export const FilterButtons = ({ dict }: { dict: Dictionary['search'] }) => {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-3 overflow-x-auto hide-scroll py-2 px-4 -mx-4">
+      <div className="flex items-center gap-3 overflow-x-auto hide-scroll py-2 w-full">
         {TYPES.map(({ label, value }) => {
           const isActive = currentType === value
           return (

@@ -38,7 +38,7 @@ export function SearchBar({ dict }: { dict: Dictionary['home'] }) {
         </span>
       </div>
       <input
-        className="block w-full pl-12 pr-28 py-4 rounded-xl border-none bg-white text-nordic-dark shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white transition-all text-lg"
+        className="block w-full pl-10 sm:pl-12 pr-12 sm:pr-28 py-3.5 sm:py-4 rounded-xl border-none bg-white text-nordic-dark shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white transition-all text-base sm:text-lg"
         placeholder={dict.searchPlaceholder}
         type="text"
         value={value}
@@ -48,14 +48,14 @@ export function SearchBar({ dict }: { dict: Dictionary['home'] }) {
         <button
           type="button"
           onClick={handleClear}
-          className="absolute inset-y-0 right-24 flex items-center text-nordic-muted hover:text-nordic-dark transition-colors px-2"
+          className="absolute inset-y-0 right-14 sm:right-24 flex items-center text-nordic-muted hover:text-nordic-dark transition-colors px-2"
         >
           <span className="material-icons text-xl">close</span>
         </button>
       )}
       <button
         type="submit"
-        className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-medium rounded-lg transition-colors flex items-center justify-center shadow-lg shadow-mosque/20"
+        className="absolute inset-y-1.5 right-1.5 px-4 sm:px-6 bg-mosque hover:bg-mosque/90 text-white font-medium rounded-lg transition-colors flex items-center justify-center shadow-lg shadow-mosque/20"
       >
         <span className="material-icons sm:hidden">search</span>
         <span className="hidden sm:inline-block">

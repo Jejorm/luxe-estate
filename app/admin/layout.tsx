@@ -2,12 +2,14 @@ import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { AdminNavbar } from '@/components/AdminNavbar'
 import { createClient } from '@/lib/supabase/server'
+import { getCurrentLocale } from '@/lib/i18n/getDictionary'
 
 export default async function AdminLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  const locale = await getCurrentLocale()
   const supabase = await createClient()
   const {
     data: { user },
@@ -36,7 +38,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark font-sans selection:bg-neutral-800">
-      <AdminNavbar user={adminUser} />
+      <AdminNavbar user={adminUser} locale={locale} />
       {/* Main Content */}
       <main className="w-full">{children}</main>
     </div>

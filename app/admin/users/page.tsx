@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { getDictionary } from '@/lib/i18n/getDictionary'
 import { fetchAdminUsers } from '../actions'
 import UserCard from './UserCard'
 
@@ -9,6 +10,7 @@ interface PageProps {
 }
 
 export default async function AdminUsersPage({ searchParams }: PageProps) {
+  const dict = await getDictionary()
   const params = await searchParams
   const page = typeof params.page === 'string' ? parseInt(params.page, 10) : 1
   const limit = 5
@@ -17,7 +19,6 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
   const { data = [], total } = await fetchAdminUsers(page, limit)
   let users = data
 
-  // Note: Server-side filtering would be better, but keeping consistency with current logic
   if (filter === 'admins') {
     users = users.filter((u) => u.role === 'admin')
   }
@@ -31,10 +32,10 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-nordic-dark">
-              User Directory
+              {dict.admin.userDirectory}
             </h1>
             <p className="text-nordic-dark/60 mt-1 text-sm">
-              Manage user access and roles for your properties.
+              {dict.admin.userDirectoryDesc}
             </p>
           </div>
         </div>
@@ -47,7 +48,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
                 : 'font-medium text-nordic-dark/60 hover:text-nordic-dark'
             }`}
           >
-            All Users
+            {dict.admin.allUsers}
           </Link>
           <Link
             href="/admin/users?filter=admins"
@@ -57,7 +58,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
                 : 'font-medium text-nordic-dark/60 hover:text-nordic-dark'
             }`}
           >
-            Admins
+            {dict.admin.admins}
           </Link>
         </div>
       </header>
@@ -66,16 +67,16 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
       <main className="grow px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full pb-12 space-y-4">
         {/* Table Header */}
         <div className="hidden md:grid grid-cols-12 gap-4 px-6 text-xs font-semibold uppercase tracking-wider text-nordic-dark/50 mb-2">
-          <div className="col-span-5">User Details</div>
-          <div className="col-span-3">Role &amp; Status</div>
-          <div className="col-span-2">Info</div>
-          <div className="col-span-2 text-right">Actions</div>
+          <div className="col-span-5">{dict.admin.userDetails}</div>
+          <div className="col-span-3">{dict.admin.roleStatus}</div>
+          <div className="col-span-2">{dict.admin.info}</div>
+          <div className="col-span-2 text-right">{dict.admin.actions}</div>
         </div>
 
         {/* User Cards */}
         {users.length === 0 ? (
           <div className="text-nordic-dark/50 py-12 text-center bg-white rounded-xl border border-gray-100">
-            No users found.
+            {dict.admin.noUsers}
           </div>
         ) : (
           users.map((user) => <UserCard key={user.id} user={user} />)
@@ -86,10 +87,11 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
       <footer className="mt-auto border-t border-nordic-dark/5 bg-background-light py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-nordic-dark/60 order-2 sm:order-1">
-            Showing{' '}
+            {dict.admin.showing}{' '}
             <span className="font-medium text-nordic-dark">{users.length}</span>{' '}
-            of <span className="font-medium text-nordic-dark">{total}</span>{' '}
-            users
+            {dict.admin.of}{' '}
+            <span className="font-medium text-nordic-dark">{total}</span>{' '}
+            {dict.admin.users}
           </p>
 
           <div className="flex items-center gap-2 order-1 sm:order-2">
@@ -106,7 +108,7 @@ export default async function AdminUsersPage({ searchParams }: PageProps) {
               </span>
             </Link>
             <div className="flex items-center px-4 h-10 rounded-lg bg-white border border-nordic-dark/10 text-sm font-medium text-nordic-dark">
-              Page {page} of {totalPages || 1}
+              {dict.admin.page} {page} {dict.admin.of} {totalPages || 1}
             </div>
             <Link
               href={`/admin/users?page=${Math.min(totalPages, page + 1)}&filter=${filter}`}
