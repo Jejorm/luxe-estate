@@ -185,11 +185,13 @@ export function AdminNavbar({ user, locale, dict }: AdminNavbarProps) {
           <Link href="/">
             <div className="shrink-0 flex items-center gap-3 cursor-pointer group">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center group-hover:bg-mosque transition-colors shadow-sm">
-                  <span className="material-icons text-white text-lg">
-                    apartment
-                  </span>
-                </div>
+                <Image
+                  src="/logo.svg"
+                  alt="Luxe Estate Logo"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm"
+                />
                 <span className="text-xl font-semibold tracking-tight text-nordic-dark group-hover:text-mosque transition-colors">
                   LuxeEstate
                 </span>

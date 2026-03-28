@@ -4,6 +4,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Luxe Estate - Premium Real Estate',
   description: 'Find your sanctuary.',
+  icons: {
+    icon: '/logo.svg',
+  },
 }
 
 export const viewport: Viewport = {

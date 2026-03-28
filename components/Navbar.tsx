@@ -36,11 +36,13 @@ export const Navbar = async () => {
           <div className="flex items-center gap-2">
             <Link href="/">
               <div className="shrink-0 flex items-center gap-2 cursor-pointer">
-                <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center">
-                  <span className="material-icons text-white text-lg">
-                    apartment
-                  </span>
-                </div>
+                <Image
+                  src="/logo.svg"
+                  alt="Luxe Estate Logo"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 rounded-lg"
+                />
                 <span className="text-xl font-semibold tracking-tight text-nordic-dark">
                   LuxeEstate
                 </span>

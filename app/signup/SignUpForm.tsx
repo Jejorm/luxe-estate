@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useActionState } from 'react'
 import { signUpWithEmail } from '@/app/actions/auth'
 
@@ -24,10 +25,14 @@ export default function SignUpForm({ dict }: { dict: any }) {
       <main className="w-full max-w-md z-10">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#004d40] rounded-[1.25rem] mb-6 shadow-sm text-white">
-            <span className="material-symbols-rounded text-4xl">
-              real_estate_agent
-            </span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#004d40] rounded-[1.25rem] mb-6 shadow-sm overflow-hidden">
+            <Image
+              src="/logo.svg"
+              alt="Luxe Estate Logo"
+              width={64}
+              height={64}
+              className="w-full h-full p-3"
+            />
           </div>
           <h1 className="text-[2rem] font-bold tracking-tight text-[#1a2d2a] mb-2 leading-tight">
             Join LuxeEstate
