@@ -1,6 +1,6 @@
 # Luxe Estate - Premium Real Estate Platform
 
-![Luxe Estate](public/vercel.svg) <!-- Replace with actual banner if available -->
+![Luxe Estate](public/logo.svg) <!-- Replace with actual banner if available -->
 
 **Luxe Estate** is a high-end real estate application designed to provide a premium, minimalist, and modern experience for buying and renting properties. Built with **Next.js 16 (App Router)** and **Supabase**, it follows strict architectural and design principles to ensure a "luxury" feel.
 
