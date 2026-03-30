@@ -15,7 +15,7 @@
 - **Admin Dashboard:** Complete management portal for properties and users.
 - **Authentication:** Secure login and registration powered by Supabase Auth.
 - **Internationalization (i18n):** Multi-language support for Spanish (default), English, and French.
-- **Modern UI:** Built with Tailwind CSS 4, following the "Antigravity" design specs.
+- **Modern UI:** Built with Tailwind CSS 4, following professional design specs.
 
 ---
 
